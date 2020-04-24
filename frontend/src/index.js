@@ -3,15 +3,20 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 
-const Post = ({post}) => {
+const Post = ({ post }) => {
+
+  const showPost = () => {
+    console.log(post.body)
+  }
+
   return (
-    <p>
-      {post.title}
-    </p>
+    <li>
+      <a onClick={showPost}>{post.title}</a>
+    </li>
   )
 }
 
-const Posts = ({posts}) => {
+const Posts = ({ posts }) => {
   console.log(posts)
   const rows = () => posts.map(post =>
     <Post
@@ -21,14 +26,17 @@ const Posts = ({posts}) => {
   )
 
   return (
-    <div>
+    <ul>
       {rows()}
-    </div>
+    </ul>
   )
 }
 
 const App = () => {
-  const posts = [{ id: 0, title: 'Heippa' }, { id: 1, title: 'Moikka' }, { id: 2, title: 'Terve' }]
+  const posts = [{ id: 0, title: 'Heippa', body: 'Ken söi kesävoin?' },
+                 { id: 1, title: 'Moikka', body: 'No en ainakaan mää.' },
+                 { id: 2, title: 'Terve', body: 'Se oli varmaan Pertti' }
+                ]
 
   return (
     <div>
