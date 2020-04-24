@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './index.css'
 
-const Post = (post) => {
+const Post = ({post}) => {
   return (
     <p>
       {post.title}
@@ -10,12 +11,15 @@ const Post = (post) => {
   )
 }
 
-const Posts = (posts) => {
-  const rows = posts.map(post =>
-    <Post 
+const Posts = ({posts}) => {
+  console.log(posts)
+  const rows = () => posts.map(post =>
+    <Post
+      key={post.id}
       post={post}
     />
   )
+
   return (
     <div>
       {rows()}
@@ -24,16 +28,17 @@ const Posts = (posts) => {
 }
 
 const App = () => {
-
-  const posts = []
+  const posts = [{ id: 0, title: 'Heippa' }, { id: 1, title: 'Moikka' }, { id: 2, title: 'Terve' }]
 
   return (
     <div>
       <h1>Blogging Site</h1>
       <h2>Posts</h2>
-      <Posts
-        posts={posts}
-      />
+      <div>
+        <Posts
+          posts={posts}
+        />
+      </div>
     </div>
   )
 }
