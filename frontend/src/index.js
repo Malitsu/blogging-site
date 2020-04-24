@@ -1,12 +1,43 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
 
-ReactDOM.render(<App />, document.getElementById('root'));
+const Post = (post) => {
+  return (
+    <p>
+      {post.title}
+    </p>
+  )
+}
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const Posts = (posts) => {
+  const rows = posts.map(post =>
+    <Post 
+      post={post}
+    />
+  )
+  return (
+    <div>
+      {rows()}
+    </div>
+  )
+}
+
+const App = () => {
+
+  const posts = []
+
+  return (
+    <div>
+      <h1>Blogging Site</h1>
+      <h2>Posts</h2>
+      <Posts
+        posts={posts}
+      />
+    </div>
+  )
+}
+
+export default App
+
+ReactDOM.render(<App />, document.getElementById('root'))
