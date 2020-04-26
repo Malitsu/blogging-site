@@ -1,27 +1,36 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
+
 import ReactDOM from 'react-dom'
+import React, { useState, useEffect } from 'react'
 import './index.css'
 
-const Post = ({ post }) => {
+const Postbody = ({ body, visibility }) => {
+  // console.log(visibility)
+  return (visibility ? <p>{body}</p> : <p></p>)
+}
 
+const Post = ({ post, setVisibility }) => {
   const showPost = () => {
-    console.log(post.body)
+    setVisibility(post.id)
   }
 
   return (
     <li>
-      <a onClick={showPost}>{post.title}</a>
+      <p onClick={showPost}>{post.title}</p>
+      <Postbody
+        body={post.body}
+        visibility={post.visibility}
+      />
     </li>
   )
 }
 
-const Posts = ({ posts }) => {
-  console.log(posts)
+const Posts = ({ posts, setVisibility }) => {
   const rows = () => posts.map(post =>
     <Post
       key={post.id}
       post={post}
+      setVisibility={setVisibility}
     />
   )
 
@@ -33,10 +42,22 @@ const Posts = ({ posts }) => {
 }
 
 const App = () => {
-  const posts = [{ id: 0, title: 'Heippa', body: 'Ken söi kesävoin?' },
-                 { id: 1, title: 'Moikka', body: 'No en ainakaan mää.' },
-                 { id: 2, title: 'Terve', body: 'Se oli varmaan Pertti' }
-                ]
+  useEffect(() => {
+    const postArr = [{ id: 0, title: 'Heippa', body: 'Ken söi kesävoin?', visibility: false },
+      { id: 1, title: 'Moikka', body: 'No en ainakaan mää.', visibility: false },
+      { id: 2, title: 'Terve', body: 'Se oli varmaan Pertti', visibility: false }
+    ]
+    setPosts(postArr)
+  }, [])
+
+  const [posts, setPosts] = useState([])
+
+  const setVisibility = (id) => {
+    const copyArr = [...posts]
+    copyArr[id].visibility = !copyArr[id].visibility
+    // console.log(copyArr[id].visibility)
+    setPosts(copyArr)
+  }
 
   return (
     <div>
@@ -45,6 +66,7 @@ const App = () => {
       <div>
         <Posts
           posts={posts}
+          setVisibility={setVisibility}
         />
       </div>
     </div>
