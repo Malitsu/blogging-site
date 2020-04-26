@@ -47,16 +47,36 @@ const Posts = ({ posts, setVisibility, deletePost }) => {
   )
 }
 
-const App = () => {
-  useEffect(() => {
-    const postArr = [{ id: 0, title: 'Heippa', body: 'Ken söi kesävoin?', visibility: false },
-      { id: 1, title: 'Moikka', body: 'No en ainakaan mää.', visibility: false },
-      { id: 2, title: 'Terve', body: 'Se oli varmaan Pertti', visibility: false }
-    ]
-    setPosts(postArr)
-  }, [])
+const PostForm = ({ addPost, newTitle, newBody, handleTitleChange, handleBodyChange }) => {
+  return (
+    <form onSubmit={addPost}>
+      <div>title: <input value={newTitle} onChange={handleTitleChange} /></div>
+      <div>body: <input value={newBody} onChange={handleBodyChange} /></div>
+      <button type="submit">post</button>
+    </form>
+  )
+}
 
-  const [posts, setPosts] = useState([])
+const App = () => {
+  /* useEffect(() => {
+    const postArr =
+    setPosts(postArr)
+  }, []) */
+
+  const [posts, setPosts] = useState([{ id: 0, title: 'Heippa', body: 'Ken söi kesävoin?', visibility: false },
+    { id: 1, title: 'Moikka', body: 'No en ainakaan mää.', visibility: false },
+    { id: 2, title: 'Terve', body: 'Se oli varmaan Pertti', visibility: false }])
+
+  const [newTitle, setNewTitle] = useState('')
+  const [newBody, setNewBody] = useState('')
+
+  const handleTitleChange = (event) => {
+    setNewTitle(event.target.value)
+  }
+
+  const handleBodyChange = (event) => {
+    setNewBody(event.target.value)
+  }
 
   const setVisibility = (id) => {
     const match = posts.filter(p => p.id === id)
@@ -70,6 +90,15 @@ const App = () => {
     setPosts(copyArr)
   }
 
+  const addPost = (event) => {
+    event.preventDefault()
+    const copyArr = [...posts]
+    const id = copyArr.length
+    copyArr.push({ id: id, title: newTitle, body: newBody, visibility: false })
+    setPosts(copyArr)
+    console.log(posts)
+  }
+
   return (
     <div>
       <h1>Blogging Site</h1>
@@ -79,6 +108,13 @@ const App = () => {
           posts={posts}
           setVisibility={setVisibility}
           deletePost={deletePost}
+        />
+        <PostForm
+          addPost={addPost}
+          newTitle={newTitle}
+          newBody={newBody}
+          handleTitleChange={handleTitleChange}
+          handleBodyChange={handleBodyChange}
         />
       </div>
     </div>
