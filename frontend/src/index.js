@@ -9,14 +9,19 @@ const Postbody = ({ body, visibility }) => {
   return (visibility ? <p>{body}</p> : <p></p>)
 }
 
-const Post = ({ post, setVisibility }) => {
+const Post = ({ post, setVisibility, deletePost }) => {
   const showPost = () => {
     setVisibility(post.id)
   }
 
+  const deleteClick = () => {
+    deletePost(post.id)
+  }
+
   return (
     <li>
-      <p onClick={showPost}>{post.title}</p>
+      <span onClick={showPost}>{post.title} </span>
+      <button onClick={deleteClick}>delete</button>
       <Postbody
         body={post.body}
         visibility={post.visibility}
@@ -25,12 +30,13 @@ const Post = ({ post, setVisibility }) => {
   )
 }
 
-const Posts = ({ posts, setVisibility }) => {
+const Posts = ({ posts, setVisibility, deletePost }) => {
   const rows = () => posts.map(post =>
     <Post
       key={post.id}
       post={post}
       setVisibility={setVisibility}
+      deletePost={deletePost}
     />
   )
 
@@ -59,6 +65,11 @@ const App = () => {
     setPosts(copyArr)
   }
 
+  const deletePost = (id) => {
+    const copyArr = posts.filter(post => post.id !== id)
+    setPosts(copyArr)
+  }
+
   return (
     <div>
       <h1>Blogging Site</h1>
@@ -67,6 +78,7 @@ const App = () => {
         <Posts
           posts={posts}
           setVisibility={setVisibility}
+          deletePost={deletePost}
         />
       </div>
     </div>
