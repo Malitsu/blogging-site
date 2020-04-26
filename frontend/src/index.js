@@ -59,9 +59,9 @@ const App = () => {
   const [posts, setPosts] = useState([])
 
   const setVisibility = (id) => {
-    const copyArr = [...posts]
-    copyArr[id].visibility = !copyArr[id].visibility
-    // console.log(copyArr[id].visibility)
+    const match = posts.filter(p => p.id === id)
+    match[0].visibility = !match[0].visibility
+    const copyArr = posts.map(p => p.id === id ? match[0] : p)
     setPosts(copyArr)
   }
 
