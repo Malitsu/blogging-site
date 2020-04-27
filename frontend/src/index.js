@@ -10,7 +10,6 @@ const Postbody = ({ writer, time, body, visibility }) => {
 }
 
 const Post = ({ post, setVisibility, deletePost }) => {
-  console.log(post.time)
   const showPost = () => {
     setVisibility(post.id)
   }
@@ -107,7 +106,9 @@ const App = () => {
     const id = copyArr.length
     copyArr.push({ id: id, title: newTitle, writer: newWriter, time: new Date(), body: newBody, visibility: false })
     setPosts(copyArr)
-    console.log(posts)
+    setNewTitle('')
+    setNewWriter('')
+    setNewBody('')
   }
 
   return (
