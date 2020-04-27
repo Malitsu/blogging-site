@@ -1,10 +1,10 @@
-package fi.tuni.tiko.ahvena.blog;
+package fi.tuni.tiko.ahvena.bloggingsite;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BlogApplicationTests {
+class BloggingSiteApplicationTests {
 
 	@Test
 	void contextLoads() {
