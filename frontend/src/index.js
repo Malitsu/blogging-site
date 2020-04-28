@@ -4,16 +4,16 @@ import ReactDOM from 'react-dom'
 import React, { useState, useEffect } from 'react'
 import './index.css'
 
-const Postbody = ({ post, modifyPost }) => {
+const Postbody = ({ post, visibility, modifyPost }) => {
   const modifyClick = () => {
     modifyPost(post.id)
   }
 
-  return (post.visibility
+  return (visibility
     ? <div>
       <p>{post.writer} {post.time.toString()}</p>
       <p>{post.body}</p>
-      <button onClick={modifyClick}>modify</button>
+      <p><button onClick={modifyClick}>modify</button></p>
     </div>
     : <p></p>)
 }
@@ -33,19 +33,21 @@ const Post = ({ post, setVisibility, deletePost, modifyPost }) => {
       <button onClick={deleteClick}>delete</button>
       <Postbody
         post={post}
+        visibility={post.visibility}
         modifyPost={modifyPost}
       />
     </li>
   )
 }
 
-const Posts = ({ posts, setVisibility, deletePost }) => {
+const Posts = ({ posts, setVisibility, deletePost, modifyPost }) => {
   const rows = () => posts.map(post =>
     <Post
       key={post.id}
       post={post}
       setVisibility={setVisibility}
       deletePost={deletePost}
+      modifyPost={modifyPost}
     />
   )
 
@@ -97,8 +99,8 @@ const App = () => {
   }
 
   const setVisibility = (id) => {
-    const match = posts.filter(post => post.id === id)[0]
-    match.visibility = !match.visibility
+    const match = posts.filter(post => post.id === id)
+    match[0].visibility = !match[0].visibility
     const copyArr = posts.map(post => post.id === id ? match[0] : post)
     setPosts(copyArr)
   }
@@ -120,10 +122,29 @@ const App = () => {
     event.preventDefault()
     const copyArr = [...posts]
     const match = copyArr.filter(post => post.id === newId)
-    match.length === 0
-      ? copyArr.push({ id: newId, title: newTitle, writer: newWriter, time: new Date(), body: newBody, visibility: false })
-      : 
-    setPosts(copyArr)
+
+    if (match.length === 0) {
+      copyArr.push({
+        id: newId,
+        title: newTitle,
+        writer: newWriter,
+        time: new Date(),
+        body: newBody,
+        visibility: false
+      })
+      setPosts(copyArr)
+    } else {
+      const modifiedPost = {
+        id: newId,
+        title: newTitle,
+        writer: newWriter,
+        time: match[0].time,
+        body: newBody,
+        visibility: match[0].visibility
+      }
+      setPosts(copyArr.map(post => post.id === newId ? modifiedPost : post))
+    }
+
     setNewTitle('')
     setNewWriter('')
     setNewBody('')
