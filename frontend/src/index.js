@@ -4,12 +4,21 @@ import ReactDOM from 'react-dom'
 import React, { useState, useEffect } from 'react'
 import './index.css'
 
-const Postbody = ({ writer, time, body, visibility }) => {
-  return (visibility ? <div><p>{writer}</p><p>{time.toString()}</p><p>{body}</p></div>
+const Postbody = ({ post, modifyPost }) => {
+  const modifyClick = () => {
+    modifyPost(post.id)
+  }
+
+  return (post.visibility
+    ? <div>
+      <p>{post.writer} {post.time.toString()}</p>
+      <p>{post.body}</p>
+      <button onClick={modifyClick}>modify</button>
+    </div>
     : <p></p>)
 }
 
-const Post = ({ post, setVisibility, deletePost }) => {
+const Post = ({ post, setVisibility, deletePost, modifyPost }) => {
   const showPost = () => {
     setVisibility(post.id)
   }
@@ -23,10 +32,8 @@ const Post = ({ post, setVisibility, deletePost }) => {
       <span onClick={showPost}>{post.title} </span>
       <button onClick={deleteClick}>delete</button>
       <Postbody
-        writer={post.writer}
-        time={post.time}
-        body={post.body}
-        visibility={post.visibility}
+        post={post}
+        modifyPost={modifyPost}
       />
     </li>
   )
@@ -75,6 +82,7 @@ const App = () => {
   const [newTitle, setNewTitle] = useState('')
   const [newWriter, setNewWriter] = useState('')
   const [newBody, setNewBody] = useState('')
+  const [newId, setNewId] = useState(posts.length)
 
   const handleTitleChange = (event) => {
     setNewTitle(event.target.value)
@@ -89,8 +97,8 @@ const App = () => {
   }
 
   const setVisibility = (id) => {
-    const match = posts.filter(post => post.id === id)
-    match[0].visibility = !match[0].visibility
+    const match = posts.filter(post => post.id === id)[0]
+    match.visibility = !match.visibility
     const copyArr = posts.map(post => post.id === id ? match[0] : post)
     setPosts(copyArr)
   }
@@ -100,15 +108,26 @@ const App = () => {
     setPosts(copyArr)
   }
 
+  const modifyPost = (id) => {
+    const match = posts.filter(post => post.id === id)
+    setNewTitle(match[0].title)
+    setNewWriter(match[0].writer)
+    setNewBody(match[0].body)
+    setNewId(id)
+  }
+
   const addPost = (event) => {
     event.preventDefault()
     const copyArr = [...posts]
-    const id = copyArr.length
-    copyArr.push({ id: id, title: newTitle, writer: newWriter, time: new Date(), body: newBody, visibility: false })
+    const match = copyArr.filter(post => post.id === newId)
+    match.length === 0
+      ? copyArr.push({ id: newId, title: newTitle, writer: newWriter, time: new Date(), body: newBody, visibility: false })
+      : 
     setPosts(copyArr)
     setNewTitle('')
     setNewWriter('')
     setNewBody('')
+    setNewId(posts.length)
   }
 
   return (
@@ -120,6 +139,7 @@ const App = () => {
           posts={posts}
           setVisibility={setVisibility}
           deletePost={deletePost}
+          modifyPost={modifyPost}
         />
         <PostForm
           addPost={addPost}
