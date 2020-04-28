@@ -4,9 +4,9 @@ import ReactDOM from 'react-dom'
 import React, { useState, useEffect } from 'react'
 import './index.css'
 
-const Postbody = ({ body, visibility }) => {
-  // console.log(visibility)
-  return (visibility ? <p>{body}</p> : <p></p>)
+const Postbody = ({ writer, time, body, visibility }) => {
+  return (visibility ? <div><p>{writer}</p><p>{time.toString()}</p><p>{body}</p></div>
+    : <p></p>)
 }
 
 const Post = ({ post, setVisibility, deletePost }) => {
@@ -23,6 +23,8 @@ const Post = ({ post, setVisibility, deletePost }) => {
       <span onClick={showPost}>{post.title} </span>
       <button onClick={deleteClick}>delete</button>
       <Postbody
+        writer={post.writer}
+        time={post.time}
         body={post.body}
         visibility={post.visibility}
       />
@@ -47,10 +49,11 @@ const Posts = ({ posts, setVisibility, deletePost }) => {
   )
 }
 
-const PostForm = ({ addPost, newTitle, newBody, handleTitleChange, handleBodyChange }) => {
+const PostForm = ({ addPost, newTitle, newBody, newWriter, handleTitleChange, handleWriterChange, handleBodyChange }) => {
   return (
     <form onSubmit={addPost}>
       <div>title: <input value={newTitle} onChange={handleTitleChange} /></div>
+      <div>writer: <input value={newWriter} onChange={handleWriterChange} /></div>
       <div>body: <input value={newBody} onChange={handleBodyChange} /></div>
       <button type="submit">post</button>
     </form>
@@ -58,20 +61,27 @@ const PostForm = ({ addPost, newTitle, newBody, handleTitleChange, handleBodyCha
 }
 
 const App = () => {
-  /* useEffect(() => {
-    const postArr =
-    setPosts(postArr)
+/*  useEffect(() => {
+    const postArr = [{ id: 0, title: 'Heippa', writer: 'Pertti', time: new Date('June 13, 2014 09:04:00'), body: 'Ken söi kesävoin?', visibility: false },
+      { id: 1, title: 'Moikka', writer: 'Virve', time: new Date('October 19, 2019 11:13:00'), body: 'No en ainakaan mää.', visibility: false },
+      { id: 2, title: 'Terve', writer: 'Olavi', time: new Date('February 20, 2020 20:20:00'), body: 'Se oli varmaan Pertti', visibility: false }]
+    setPosts([postArr])
   }, []) */
 
-  const [posts, setPosts] = useState([{ id: 0, title: 'Heippa', body: 'Ken söi kesävoin?', visibility: false },
-    { id: 1, title: 'Moikka', body: 'No en ainakaan mää.', visibility: false },
-    { id: 2, title: 'Terve', body: 'Se oli varmaan Pertti', visibility: false }])
+  const [posts, setPosts] = useState([{ id: 0, title: 'Heippa', writer: 'Pertti', time: new Date('June 13, 2014 09:04:00'), body: 'Ken söi kesävoin?', visibility: false },
+    { id: 1, title: 'Moikka', writer: 'Virve', time: new Date('October 19, 2019 11:13:00'), body: 'No en ainakaan mää.', visibility: false },
+    { id: 2, title: 'Terve', writer: 'Olavi', time: new Date('February 20, 2020 20:20:00'), body: 'Se oli varmaan Pertti', visibility: false }])
 
   const [newTitle, setNewTitle] = useState('')
+  const [newWriter, setNewWriter] = useState('')
   const [newBody, setNewBody] = useState('')
 
   const handleTitleChange = (event) => {
     setNewTitle(event.target.value)
+  }
+
+  const handleWriterChange = (event) => {
+    setNewWriter(event.target.value)
   }
 
   const handleBodyChange = (event) => {
@@ -79,9 +89,9 @@ const App = () => {
   }
 
   const setVisibility = (id) => {
-    const match = posts.filter(p => p.id === id)
+    const match = posts.filter(post => post.id === id)
     match[0].visibility = !match[0].visibility
-    const copyArr = posts.map(p => p.id === id ? match[0] : p)
+    const copyArr = posts.map(post => post.id === id ? match[0] : post)
     setPosts(copyArr)
   }
 
@@ -94,9 +104,11 @@ const App = () => {
     event.preventDefault()
     const copyArr = [...posts]
     const id = copyArr.length
-    copyArr.push({ id: id, title: newTitle, body: newBody, visibility: false })
+    copyArr.push({ id: id, title: newTitle, writer: newWriter, time: new Date(), body: newBody, visibility: false })
     setPosts(copyArr)
-    console.log(posts)
+    setNewTitle('')
+    setNewWriter('')
+    setNewBody('')
   }
 
   return (
@@ -113,7 +125,9 @@ const App = () => {
           addPost={addPost}
           newTitle={newTitle}
           newBody={newBody}
+          newWriter={newWriter}
           handleTitleChange={handleTitleChange}
+          handleWriterChange={handleWriterChange}
           handleBodyChange={handleBodyChange}
         />
       </div>
