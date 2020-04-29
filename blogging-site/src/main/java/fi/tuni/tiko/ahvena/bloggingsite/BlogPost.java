@@ -3,12 +3,13 @@ package fi.tuni.tiko.ahvena.bloggingsite;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Entity
 public class BlogPost {
     public String title;
     public String textBody;
-    public String publishingTime;
+    public Date publishingTime;
     public String publisher;
 
     @Id
@@ -42,11 +43,11 @@ public class BlogPost {
         this.textBody = textBody;
     }
 
-    public String getPublishingTime() {
+    public Date getPublishingTime() {
         return publishingTime;
     }
 
-    public void setPublishingTime(String publishingTime) {
+    public void setPublishingTime(Date publishingTime) {
         this.publishingTime = publishingTime;
     }
 
@@ -58,7 +59,7 @@ public class BlogPost {
         this.publisher = publisher;
     }
 
-    public BlogPost(String title, String textBody, String publishingTime, String publisher) {
+    public BlogPost(String title, String textBody, Date publishingTime, String publisher) {
         this.title = title;
         this.textBody = textBody;
         this.publishingTime = publishingTime;
