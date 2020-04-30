@@ -110,8 +110,17 @@ const App = () => {
   }
 
   const deletePost = (id) => {
-    const copyArr = posts.filter(post => post.id !== id)
-    setPosts(copyArr)
+    /* const copyArr = posts.filter(post => post.id !== id)
+    setPosts(copyArr) */
+    postService
+      .deletePost(id)
+      .then(() => handleUpdate())
+  }
+
+  const handleUpdate = () => {
+    postService
+      .getPosts()
+      .then(initialPosts => setPosts(initialPosts))
   }
 
   const modifyPost = (id) => {

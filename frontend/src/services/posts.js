@@ -5,7 +5,6 @@ const getPosts = () => {
     method: 'GET'
   })
   return request.then(jsonObject => jsonObject.json())
-    .then(response => response)
 }
 
 const deletePost = (id) => {
@@ -13,7 +12,6 @@ const deletePost = (id) => {
     method: 'DELETE'
   })
   return request.then(jsonObject => jsonObject.json())
-    .then(response => response.data)
 }
 
 const addPost = (newPost) => {
@@ -25,7 +23,6 @@ const addPost = (newPost) => {
     body: JSON.stringify(newPost)
   })
   return request.then(jsonObject => jsonObject.json())
-    .then(response => response.data)
 }
 
 const updatePost = (id, newPost) => {
@@ -37,7 +34,6 @@ const updatePost = (id, newPost) => {
     body: JSON.stringify(newPost)
   })
   return request.then(jsonObject => jsonObject.json())
-    .then(response => response.data)
 }
 
 export default { getPosts, deletePost, addPost, updatePost }
