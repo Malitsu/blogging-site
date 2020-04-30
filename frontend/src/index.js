@@ -84,7 +84,7 @@ const App = () => {
   const [newTitle, setNewTitle] = useState('')
   const [newWriter, setNewWriter] = useState('')
   const [newBody, setNewBody] = useState('')
-  const [newId, setNewId] = useState(posts.length)
+  const [newId, setNewId] = useState(posts.length + 1)
 
   const handleTitleChange = (event) => {
     setNewTitle(event.target.value)
@@ -99,15 +99,10 @@ const App = () => {
   }
 
   const handleUpdate = (answer) => {
-    // console.log(answer)
     postService
       .getPosts()
       .then(initialPosts => {
         setPosts(initialPosts)
-        setNewTitle('')
-        setNewWriter('')
-        setNewBody('')
-        setNewId(posts.length)
       })
   }
 
@@ -137,7 +132,6 @@ const App = () => {
 
     const copyArr = [...posts]
     const matches = copyArr.filter(post => post.id === newId)
-
     if (matches.length === 0) {
       const postObject = {
         title: newTitle,
@@ -157,12 +151,17 @@ const App = () => {
         time: matches[0].time,
         body: newBody,
         visibility: true,
-        id: matches[0].id
+        id: newId
       }
       postService
         .updatePost(matches[0].id, postObject)
         .then((answer) => handleUpdate(answer))
     }
+
+    setNewTitle('')
+    setNewWriter('')
+    setNewBody('')
+    setNewId(posts.length + 1)
   }
 
   return (
