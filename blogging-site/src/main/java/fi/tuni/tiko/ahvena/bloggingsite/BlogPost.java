@@ -39,24 +39,24 @@ public class BlogPost {
         return body;
     }
 
-    public void setBody(String textBody) {
-        this.body = textBody;
+    public void setBody(String body) {
+        this.body = body;
     }
 
     public Date getTime() {
         return time;
     }
 
-    public void setTime(Date publishingTime) {
-        this.time = publishingTime;
+    public void setTime(Date time) {
+        this.time = time;
     }
 
     public String getWriter() {
         return writer;
     }
 
-    public void setWriter(String publisher) {
-        this.writer = publisher;
+    public void setWriter(String writer) {
+        this.writer = writer;
     }
 
     public BlogPost(String title, String textBody, Date publishingTime, String publisher) {
