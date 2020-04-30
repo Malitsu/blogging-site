@@ -99,6 +99,7 @@ const App = () => {
   }
 
   const handleUpdate = (answer) => {
+    // console.log(answer)
     postService
       .getPosts()
       .then(initialPosts => {
@@ -151,9 +152,9 @@ const App = () => {
         writer: newWriter,
         time: matches[0].time,
         body: newBody,
-        visibility: true
+        visibility: true,
+        id: matches[0].id
       }
-      console.log(postObject)
       postService
         .updatePost(matches[0].id, postObject)
         .then((answer) => handleUpdate(answer))
