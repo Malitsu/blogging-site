@@ -133,7 +133,18 @@ const App = () => {
 
   const addPost = (event) => {
     event.preventDefault()
-    const copyArr = [...posts]
+    const postObject = {
+      title: newTitle,
+      writer: newWriter,
+      time: new Date().toISOString(),
+      body: newBody,
+      visibility: false
+    }
+    postService
+      .createPost(postObject)
+      .then(returnedPost => setPosts(posts.concat(returnedPost)))
+
+    /* const copyArr = [...posts]
     const match = copyArr.filter(post => post.id === newId)
 
     if (match.length === 0) {
@@ -156,7 +167,7 @@ const App = () => {
         visibility: match[0].visibility
       }
       setPosts(copyArr.map(post => post.id === newId ? modifiedPost : post))
-    }
+    } */
 
     setNewTitle('')
     setNewWriter('')

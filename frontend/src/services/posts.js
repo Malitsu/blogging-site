@@ -14,7 +14,7 @@ const deletePost = (id) => {
   return request.then(jsonObject => jsonObject.json())
 }
 
-const addPost = (newPost) => {
+const createPost = (newPost) => {
   const request = fetch(baseUrl, {
     method: 'POST',
     headers: {
@@ -36,4 +36,4 @@ const updatePost = (id, newPost) => {
   return request.then(jsonObject => jsonObject.json())
 }
 
-export default { getPosts, deletePost, addPost, updatePost }
+export default { getPosts, deletePost, createPost, updatePost }
