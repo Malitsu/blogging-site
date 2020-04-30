@@ -25,6 +25,12 @@ public class BlogRestController {
         bdb.save(b);
         return b;
     }
+    @CrossOrigin
+    @RequestMapping(value= "/blogpost/{postId}", method= RequestMethod.PUT)
+    public BlogPost modifyPost(@RequestBody BlogPost b) {
+        return b;
+    }
+
 
 
 }
