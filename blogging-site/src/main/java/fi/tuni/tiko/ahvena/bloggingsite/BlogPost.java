@@ -4,7 +4,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
-
+/*
+This class holds the BlogPost object which has parameters
+String title, String body, Date time and String writer.
+ */
 @Entity
 public class BlogPost {
     public String title;
