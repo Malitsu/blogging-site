@@ -1,13 +1,11 @@
-const fetch = require('node-fetch')
-
-const baseUrl = 'http://localhost:8080/blogposts/'
+const baseUrl = 'http://localhost:8080/blogposts'
 
 const getPosts = () => {
   const request = fetch(baseUrl, {
     method: 'GET'
   })
   return request.then(jsonObject => jsonObject.json())
-    .then(response => response.data)
+    .then(response => response)
 }
 
 const deletePost = (id) => {
