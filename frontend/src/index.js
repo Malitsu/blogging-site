@@ -142,7 +142,7 @@ const App = () => {
     }
     postService
       .createPost(postObject)
-      .then(returnedPost => setPosts(posts.concat(returnedPost)))
+      .then(() => handleUpdate())
 
     /* const copyArr = [...posts]
     const match = copyArr.filter(post => post.id === newId)
