@@ -22,7 +22,6 @@ public class BloggingSiteApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		System.out.println("Team Ahvena: Tiina Malinen, Anna Metsäpelto");
 		bdb.save(new BlogPost("First post", "This is the first test post on this blogging site.", new Date(), "Anna"));
-		Iterable<BlogPost> list = bdb.findAll();
-		list.forEach(System.out::println);
+
 	}
 }

@@ -1,9 +1,7 @@
 package fi.tuni.tiko.ahvena.bloggingsite;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class BlogRestController {
@@ -16,4 +14,16 @@ public class BlogRestController {
 
         return bdb.findAll();
     }
+    @CrossOrigin
+    @RequestMapping(value= "/blogposts/{postId}", method= RequestMethod.DELETE)
+    public void deletePost(@PathVariable int postId) {
+        bdb.deleteById(postId);
+    }
+ /*   @CrossOrigin
+    @RequestMapping(value = "/blogposts", method= RequestMethod.POST)
+    public void savePost(@RequestBody BlogPost b) {
+        bdb.save(b);
+    }
+
+  */
 }
