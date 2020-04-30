@@ -84,7 +84,7 @@ const App = () => {
   const [newTitle, setNewTitle] = useState('')
   const [newWriter, setNewWriter] = useState('')
   const [newBody, setNewBody] = useState('')
-  const [newId, setNewId] = useState(0)
+  const [newId, setNewId] = useState(posts.length)
 
   const handleTitleChange = (event) => {
     setNewTitle(event.target.value)
@@ -124,31 +124,38 @@ const App = () => {
     setNewTitle(match[0].title)
     setNewWriter(match[0].writer)
     setNewBody(match[0].body)
+    setNewId(id)
   }
 
   const addPost = (event) => {
     event.preventDefault()
 
-    const postObject = {
-      title: newTitle,
-      writer: newWriter,
-      time: new Date().toISOString(),
-      body: newBody,
-      visibility: false
-    }
-
     const copyArr = [...posts]
-    const match = copyArr.filter(post => post.id === newId)
+    const matches = copyArr.filter(post => post.id === newId)
 
-    if (match.length === 0) {
+    if (matches.length === 0) {
+      const postObject = {
+        title: newTitle,
+        writer: newWriter,
+        time: new Date().toISOString(),
+        body: newBody,
+        visibility: false
+      }
       postService
-        .createPost(match[0].id, postObject)
+        .createPost(postObject)
         .then((answer) => handleUpdate(answer))
     } else {
-      postObject.time = match[0].time
-      postObject.visibility = true
+      console.log(matches)
+      const postObject = {
+        title: newTitle,
+        writer: newWriter,
+        time: matches[0].time,
+        body: newBody,
+        visibility: true
+      }
+      console.log(postObject)
       postService
-        .updatePost(postObject)
+        .updatePost(matches[0].id, postObject)
         .then((answer) => handleUpdate(answer))
     }
 
