@@ -102,6 +102,14 @@ const App = () => {
     setNewBody(event.target.value)
   }
 
+  const handleUpdate = (answer) => {
+    postService
+      .getPosts()
+      .then(initialPosts => {
+        setPosts(initialPosts)
+      })
+  }
+
   const setVisibility = (id) => {
     const match = posts.filter(post => post.id === id)
     match[0].visibility = !match[0].visibility
@@ -110,17 +118,9 @@ const App = () => {
   }
 
   const deletePost = (id) => {
-    /* const copyArr = posts.filter(post => post.id !== id)
-    setPosts(copyArr) */
     postService
       .deletePost(id)
-      .then(() => handleUpdate())
-  }
-
-  const handleUpdate = () => {
-    postService
-      .getPosts()
-      .then(initialPosts => setPosts(initialPosts))
+      .then((answer) => handleUpdate(answer))
   }
 
   const modifyPost = (id) => {
@@ -133,6 +133,7 @@ const App = () => {
 
   const addPost = (event) => {
     event.preventDefault()
+
     const postObject = {
       title: newTitle,
       writer: newWriter,
@@ -140,34 +141,10 @@ const App = () => {
       body: newBody,
       visibility: false
     }
+
     postService
       .createPost(postObject)
-      .then(returnedPost => setPosts(posts.concat(returnedPost)))
-
-    /* const copyArr = [...posts]
-    const match = copyArr.filter(post => post.id === newId)
-
-    if (match.length === 0) {
-      copyArr.push({
-        id: newId,
-        title: newTitle,
-        writer: newWriter,
-        time: new Date(),
-        body: newBody,
-        visibility: false
-      })
-      setPosts(copyArr)
-    } else {
-      const modifiedPost = {
-        id: newId,
-        title: newTitle,
-        writer: newWriter,
-        time: match[0].time,
-        body: newBody,
-        visibility: match[0].visibility
-      }
-      setPosts(copyArr.map(post => post.id === newId ? modifiedPost : post))
-    } */
+      .then((answer) => handleUpdate(answer))
 
     setNewTitle('')
     setNewWriter('')
