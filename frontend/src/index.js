@@ -104,6 +104,10 @@ const App = () => {
       .getPosts()
       .then(initialPosts => {
         setPosts(initialPosts)
+        setNewTitle('')
+        setNewWriter('')
+        setNewBody('')
+        setNewId(posts.length)
       })
   }
 
@@ -159,11 +163,6 @@ const App = () => {
         .updatePost(matches[0].id, postObject)
         .then((answer) => handleUpdate(answer))
     }
-
-    setNewTitle('')
-    setNewWriter('')
-    setNewBody('')
-    setNewId(posts.length)
   }
 
   return (
