@@ -19,11 +19,11 @@ public class BlogRestController {
     public void deletePost(@PathVariable int postId) {
         bdb.deleteById(postId);
     }
- /*   @CrossOrigin
+    @CrossOrigin
     @RequestMapping(value = "/blogposts", method= RequestMethod.POST)
     public void savePost(@RequestBody BlogPost b) {
         bdb.save(b);
     }
 
-  */
+
 }
