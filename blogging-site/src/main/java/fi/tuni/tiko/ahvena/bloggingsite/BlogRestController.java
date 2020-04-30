@@ -21,8 +21,9 @@ public class BlogRestController {
     }
     @CrossOrigin
     @RequestMapping(value = "/blogposts", method= RequestMethod.POST)
-    public void savePost(@RequestBody BlogPost b) {
+    public BlogPost savePost(@RequestBody BlogPost b) {
         bdb.save(b);
+        return b;
     }
 
 
