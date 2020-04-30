@@ -33,7 +33,7 @@ const updatePost = (id, newPost) => {
     },
     body: JSON.stringify(newPost)
   })
-  return request.then(jsonObject => jsonObject.json())
+  return request.then(data => data)
 }
 
 export default { getPosts, deletePost, createPost, updatePost }
