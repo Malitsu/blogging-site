@@ -3,6 +3,8 @@ package fi.tuni.tiko.ahvena.bloggingsite;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @RestController
 public class BlogRestController {
     @Autowired
@@ -26,9 +28,15 @@ public class BlogRestController {
         return b;
     }
     @CrossOrigin
-    @RequestMapping(value= "/blogpost/{postId}", method= RequestMethod.PUT)
-    public BlogPost modifyPost(@RequestBody BlogPost b) {
-        return b;
+    @RequestMapping(value= "/blogposts/{postId}", method= RequestMethod.PUT)
+    public Optional<BlogPost> modifyPost(@RequestBody BlogPost b, @PathVariable int id) {
+        return bdb.findById(id)
+                .map(post -> {
+                    b.setBody(post.getBody());
+                    b.setTitle(post.getTitle());
+                    b.setWriter(post.getWriter());
+                    return bdb.save(post);
+                });
     }
 
 
