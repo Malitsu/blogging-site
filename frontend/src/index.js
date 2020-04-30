@@ -2,6 +2,7 @@
 
 import ReactDOM from 'react-dom'
 import React, { useState, useEffect } from 'react'
+import postService from './services/posts'
 import './index.css'
 
 const Postbody = ({ post, visibility, modifyPost }) => {
@@ -70,16 +71,18 @@ const PostForm = ({ addPost, newTitle, newBody, newWriter, handleTitleChange, ha
 }
 
 const App = () => {
-/*  useEffect(() => {
-    const postArr = [{ id: 0, title: 'Heippa', writer: 'Pertti', time: new Date('June 13, 2014 09:04:00'), body: 'Ken söi kesävoin?', visibility: false },
-      { id: 1, title: 'Moikka', writer: 'Virve', time: new Date('October 19, 2019 11:13:00'), body: 'No en ainakaan mää.', visibility: false },
-      { id: 2, title: 'Terve', writer: 'Olavi', time: new Date('February 20, 2020 20:20:00'), body: 'Se oli varmaan Pertti', visibility: false }]
-    setPosts([postArr])
-  }, []) */
+  useEffect(() => {
+    postService
+      .getPosts()
+      .then(initialPosts => {
+        setPosts(initialPosts)
+      })
+  }, [])
 
-  const [posts, setPosts] = useState([{ id: 0, title: 'Heippa', writer: 'Pertti', time: new Date('June 13, 2014 09:04:00'), body: 'Ken söi kesävoin?', visibility: false },
+  const [posts, setPosts] = useState([])
+  /* useState([{ id: 0, title: 'Heippa', writer: 'Pertti', time: new Date('June 13, 2014 09:04:00'), body: 'Ken söi kesävoin?', visibility: false },
     { id: 1, title: 'Moikka', writer: 'Virve', time: new Date('October 19, 2019 11:13:00'), body: 'No en ainakaan mää.', visibility: false },
-    { id: 2, title: 'Terve', writer: 'Olavi', time: new Date('February 20, 2020 20:20:00'), body: 'Se oli varmaan Pertti', visibility: false }])
+    { id: 2, title: 'Terve', writer: 'Olavi', time: new Date('February 20, 2020 20:20:00'), body: 'Se oli varmaan Pertti', visibility: false }]) */
 
   const [newTitle, setNewTitle] = useState('')
   const [newWriter, setNewWriter] = useState('')
