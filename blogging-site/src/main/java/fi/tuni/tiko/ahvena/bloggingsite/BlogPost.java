@@ -59,11 +59,11 @@ public class BlogPost {
         this.writer = writer;
     }
 
-    public BlogPost(String title, String textBody, Date publishingTime, String publisher) {
+    public BlogPost(String title, String body, Date time, String writer) {
         this.title = title;
-        this.body = textBody;
-        this.time = publishingTime;
-        this.writer = publisher;
+        this.body = body;
+        this.time = time;
+        this.writer = writer;
     }
     public BlogPost() {}
 }
