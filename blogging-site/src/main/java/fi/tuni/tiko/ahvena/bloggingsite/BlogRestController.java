@@ -29,8 +29,9 @@ public class BlogRestController {
     }
     @CrossOrigin
     @RequestMapping(value= "/blogposts/{postId}", method= RequestMethod.PUT)
-    public Optional<BlogPost> modifyPost(@RequestBody BlogPost b, @PathVariable int id) {
-        return bdb.findById(id)
+    public Optional<BlogPost> updatePost(@PathVariable int postId, @RequestBody BlogPost b) {
+        bdb.save(b);
+        return bdb.findById(postId)
                 .map(post -> {
                     b.setBody(post.getBody());
                     b.setTitle(post.getTitle());
