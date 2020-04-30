@@ -11,7 +11,7 @@ const deletePost = (id) => {
   const request = fetch(baseUrl + id, {
     method: 'DELETE'
   })
-  return request.then(jsonObject => jsonObject.json())
+  return request.then(data => data)
 }
 
 const createPost = (newPost) => {
@@ -22,7 +22,7 @@ const createPost = (newPost) => {
     },
     body: JSON.stringify(newPost)
   })
-  return request.then(jsonObject => jsonObject.json())
+  return request.then(data => data)
 }
 
 const updatePost = (id, newPost) => {
