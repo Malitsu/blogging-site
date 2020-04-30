@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:8080/blogposts'
+const baseUrl = 'http://localhost:8080/blogposts/'
 
 const getPosts = () => {
   const request = fetch(baseUrl, {

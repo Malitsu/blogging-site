@@ -8,9 +8,9 @@ import java.util.Date;
 @Entity
 public class BlogPost {
     public String title;
-    public String textBody;
-    public Date publishingTime;
-    public String publisher;
+    public String body;
+    public Date time;
+    public String writer;
 
     @Id
     @GeneratedValue
@@ -20,9 +20,9 @@ public class BlogPost {
     public String toString() {
         return "BlogPost{" +
                 "title='" + title + '\'' +
-                ", textBody='" + textBody + '\'' +
-                ", publishingTime='" + publishingTime + '\'' +
-                ", publisher='" + publisher + '\'' +
+                ", textBody='" + body + '\'' +
+                ", publishingTime='" + time + '\'' +
+                ", publisher='" + writer + '\'' +
                 ", id=" + id +
                 '}';
     }
@@ -35,35 +35,35 @@ public class BlogPost {
         this.title = title;
     }
 
-    public String getTextBody() {
-        return textBody;
+    public String getBody() {
+        return body;
     }
 
-    public void setTextBody(String textBody) {
-        this.textBody = textBody;
+    public void setBody(String textBody) {
+        this.body = textBody;
     }
 
-    public Date getPublishingTime() {
-        return publishingTime;
+    public Date getTime() {
+        return time;
     }
 
-    public void setPublishingTime(Date publishingTime) {
-        this.publishingTime = publishingTime;
+    public void setTime(Date publishingTime) {
+        this.time = publishingTime;
     }
 
-    public String getPublisher() {
-        return publisher;
+    public String getWriter() {
+        return writer;
     }
 
-    public void setPublisher(String publisher) {
-        this.publisher = publisher;
+    public void setWriter(String publisher) {
+        this.writer = publisher;
     }
 
     public BlogPost(String title, String textBody, Date publishingTime, String publisher) {
         this.title = title;
-        this.textBody = textBody;
-        this.publishingTime = publishingTime;
-        this.publisher = publisher;
+        this.body = textBody;
+        this.time = publishingTime;
+        this.writer = publisher;
     }
     public BlogPost() {}
 }
