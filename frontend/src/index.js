@@ -141,14 +141,14 @@ const App = () => {
     const match = copyArr.filter(post => post.id === newId)
 
     if (match.length === 0) {
+      postService
+        .createPost(match[0].id, postObject)
+        .then((answer) => handleUpdate(answer))
+    } else {
       postObject.time = match[0].time
       postObject.visibility = true
       postService
         .updatePost(postObject)
-        .then((answer) => handleUpdate(answer))
-    } else {
-      postService
-        .createPost(match[0].id, postObject)
         .then((answer) => handleUpdate(answer))
     }
 
