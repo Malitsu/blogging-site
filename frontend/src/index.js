@@ -76,6 +76,7 @@ const App = () => {
       .getPosts()
       .then(initialPosts => {
         setPosts(initialPosts)
+        console.log(initialPosts)
       })
   }, [])
 
@@ -87,7 +88,7 @@ const App = () => {
   const [newTitle, setNewTitle] = useState('')
   const [newWriter, setNewWriter] = useState('')
   const [newBody, setNewBody] = useState('')
-  const [newId, setNewId] = useState(posts.length)
+  const [newId, setNewId] = useState(0)
 
   const handleTitleChange = (event) => {
     setNewTitle(event.target.value)
