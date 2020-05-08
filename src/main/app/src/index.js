@@ -19,13 +19,15 @@ const Postbody = ({ post, visibility, modifyPost }) => {
     : <p></p>)
 }
 
-const Post = ({ post, setVisibility, deletePost, modifyPost }) => {
+const Post = ({ post, setVisibility, handleUpdate, modifyPost }) => {
   const showPost = () => {
     setVisibility(post.id)
   }
 
   const deleteClick = () => {
-    deletePost(post.id)
+    postService
+      .deletePost(post.id)
+      .then((answer) => handleUpdate(answer))
   }
 
   return (
@@ -41,13 +43,13 @@ const Post = ({ post, setVisibility, deletePost, modifyPost }) => {
   )
 }
 
-const Posts = ({ posts, setVisibility, deletePost, modifyPost }) => {
+const Posts = ({ posts, setVisibility, handleUpdate, modifyPost }) => {
   const rows = () => posts.map(post =>
     <Post
       key={post.id}
       post={post}
       setVisibility={setVisibility}
-      deletePost={deletePost}
+      handleUpdate={handleUpdate}
       modifyPost={modifyPost}
     />
   )
@@ -70,6 +72,17 @@ const PostForm = ({ addPost, newTitle, newBody, newWriter, handleTitleChange, ha
   )
 }
 
+const LoginForm = ({ checkLogin, username, password, handleUsernameChange, handlePasswordChange }) => {
+
+  return (
+    <form onSubmit={checkLogin}>
+      <div>username: <input value={username} onChange={handleUsernameChange}/></div>
+      <div>password: <input value={password} onChange={handlePasswordChange}/></div>
+      <button type="submit">post</button>
+    </form>
+  )
+}
+
 const App = () => {
   useEffect(() => {
     postService
@@ -85,18 +98,14 @@ const App = () => {
   const [newWriter, setNewWriter] = useState('')
   const [newBody, setNewBody] = useState('')
   const [newId, setNewId] = useState(posts.length + 1)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
 
-  const handleTitleChange = (event) => {
-    setNewTitle(event.target.value)
-  }
-
-  const handleWriterChange = (event) => {
-    setNewWriter(event.target.value)
-  }
-
-  const handleBodyChange = (event) => {
-    setNewBody(event.target.value)
-  }
+  const handleTitleChange = (event) => { setNewTitle(event.target.value) }
+  const handleWriterChange = (event) => { setNewWriter(event.target.value) }
+  const handleBodyChange = (event) => { setNewBody(event.target.value) }
+  const handleUsernameChange = (event) => { setUsername(event.target.value) }
+  const handlePasswordChange = (event) => { setPassword(event.target.value) }
 
   const handleUpdate = (answer) => {
     postService
@@ -113,10 +122,9 @@ const App = () => {
     setPosts(copyArr)
   }
 
-  const deletePost = (id) => {
-    postService
-      .deletePost(id)
-      .then((answer) => handleUpdate(answer))
+  const checkLogin = (event) => {
+    event.preventDefault()
+    console.log(username, password)
   }
 
   const modifyPost = (id) => {
@@ -172,7 +180,7 @@ const App = () => {
         <Posts
           posts={posts}
           setVisibility={setVisibility}
-          deletePost={deletePost}
+          handleUpdate={handleUpdate}
           modifyPost={modifyPost}
         />
         <PostForm
@@ -183,6 +191,13 @@ const App = () => {
           handleTitleChange={handleTitleChange}
           handleWriterChange={handleWriterChange}
           handleBodyChange={handleBodyChange}
+        />
+        <LoginForm
+          checkLogin={checkLogin}
+          username={username}
+          password={password}
+          handleUsernameChange={handleUsernameChange}
+          handlePasswordChange={handlePasswordChange}
         />
       </div>
     </div>
