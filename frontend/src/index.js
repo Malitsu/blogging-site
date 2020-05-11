@@ -11,7 +11,7 @@ const Postbody = ({ post, visibility, modifyPost }) => {
   }
 
   return (visibility
-    ? <div>
+    ? <div className="post">
       <p>{post.writer} {post.time.toString()}</p>
       <p>{post.body}</p>
       <p><button onClick={modifyClick}>modify</button></p>
@@ -169,13 +169,15 @@ const App = () => {
       <h1>Blogging Site</h1>
       <h2>Posts</h2>
       <div>
-        <Posts
+        <div className="postBody">
+          <Posts
           posts={posts}
           setVisibility={setVisibility}
           deletePost={deletePost}
           modifyPost={modifyPost}
-        />
-        <PostForm
+        /></div>
+        <div className="postForm">
+          <PostForm
           addPost={addPost}
           newTitle={newTitle}
           newBody={newBody}
@@ -183,7 +185,8 @@ const App = () => {
           handleTitleChange={handleTitleChange}
           handleWriterChange={handleWriterChange}
           handleBodyChange={handleBodyChange}
-        />
+        /></div>
+        
       </div>
     </div>
   )
