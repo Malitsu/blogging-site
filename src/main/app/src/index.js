@@ -19,13 +19,15 @@ const Postbody = ({ post, visibility, modifyPost }) => {
     : <p></p>)
 }
 
-const Post = ({ post, setVisibility, deletePost, modifyPost }) => {
+const Post = ({ post, setVisibility, handleUpdate, modifyPost }) => {
   const showPost = () => {
     setVisibility(post.id)
   }
 
   const deleteClick = () => {
-    deletePost(post.id)
+    postService
+      .deletePost(post.id)
+      .then((answer) => handleUpdate(answer))
   }
 
   return (
@@ -41,32 +43,63 @@ const Post = ({ post, setVisibility, deletePost, modifyPost }) => {
   )
 }
 
-const Posts = ({ posts, setVisibility, deletePost, modifyPost }) => {
+const Posts = ({ posts, setVisibility, handleUpdate, modifyPost }) => {
   const rows = () => posts.map(post =>
     <Post
       key={post.id}
       post={post}
       setVisibility={setVisibility}
-      deletePost={deletePost}
+      handleUpdate={handleUpdate}
       modifyPost={modifyPost}
     />
   )
 
   return (
-    <ul>
-      {rows()}
-    </ul>
+    <div>
+      <h2>Posts</h2>
+      <ul>
+        {rows()}
+      </ul>
+    </div>
   )
 }
 
 const PostForm = ({ addPost, newTitle, newBody, newWriter, handleTitleChange, handleWriterChange, handleBodyChange }) => {
   return (
-    <form onSubmit={addPost}>
-      <div>title: <input value={newTitle} onChange={handleTitleChange} /></div>
-      <div>writer: <input value={newWriter} onChange={handleWriterChange} /></div>
-      <div>body: <input value={newBody} onChange={handleBodyChange} /></div>
-      <button type="submit">post</button>
-    </form>
+    <div>
+      <h2>New Post</h2>
+      <form onSubmit={addPost}>
+        <div>title: <input value={newTitle} onChange={handleTitleChange} /></div>
+        <div>writer: <input value={newWriter} onChange={handleWriterChange} /></div>
+        <div>body: <input value={newBody} onChange={handleBodyChange} /></div>
+        <button type="submit">post</button>
+      </form>
+    </div>
+  )
+}
+
+const LoginForm = ({ checkLogin, username, password, handleUsernameChange, handlePasswordChange }) => {
+  return (
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={checkLogin}>
+        <div>username: <input value={username} onChange={handleUsernameChange}/></div>
+        <div>password: <input value={password} onChange={handlePasswordChange}/></div>
+        <button type="submit">login</button>
+      </form>
+    </div>
+  )
+}
+
+const SearchForm = ({ makeSearch, search, handleSearchChange }) => {
+  return (
+    <div>
+      <h2>Search</h2>
+      <form onSubmit={makeSearch}>
+        <div><input value={search} onChange={handleSearchChange}/></div>
+        <button type="submit">search</button>
+      </form>
+    </div>
   )
 }
 
@@ -85,18 +118,16 @@ const App = () => {
   const [newWriter, setNewWriter] = useState('')
   const [newBody, setNewBody] = useState('')
   const [newId, setNewId] = useState(posts.length + 1)
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [search, setSearch] = useState('')
 
-  const handleTitleChange = (event) => {
-    setNewTitle(event.target.value)
-  }
-
-  const handleWriterChange = (event) => {
-    setNewWriter(event.target.value)
-  }
-
-  const handleBodyChange = (event) => {
-    setNewBody(event.target.value)
-  }
+  const handleTitleChange = (event) => { setNewTitle(event.target.value) }
+  const handleWriterChange = (event) => { setNewWriter(event.target.value) }
+  const handleBodyChange = (event) => { setNewBody(event.target.value) }
+  const handleUsernameChange = (event) => { setUsername(event.target.value) }
+  const handlePasswordChange = (event) => { setPassword(event.target.value) }
+  const handleSearchChange = (event) => { setSearch(event.target.value) }
 
   const handleUpdate = (answer) => {
     postService
@@ -113,10 +144,17 @@ const App = () => {
     setPosts(copyArr)
   }
 
-  const deletePost = (id) => {
-    postService
-      .deletePost(id)
-      .then((answer) => handleUpdate(answer))
+  const checkLogin = (event) => {
+    event.preventDefault()
+    console.log(username, password)
+    setUsername('')
+    setPassword('')
+  }
+
+  const makeSearch = (event) => {
+    event.preventDefault()
+    console.log(search)
+    setSearch('')
   }
 
   const modifyPost = (id) => {
@@ -167,6 +205,7 @@ const App = () => {
   return (
     <div>
       <h1>Blogging Site</h1>
+<<<<<<< HEAD:frontend/src/index.js
       <h2>Posts</h2>
       <div>
         <div className="postBody">
@@ -188,6 +227,35 @@ const App = () => {
         /></div>
         
       </div>
+=======
+      <SearchForm
+        makeSearch={makeSearch}
+        search={search}
+        handleSearchChange={handleSearchChange}
+      />
+      <Posts
+        posts={posts}
+        setVisibility={setVisibility}
+        handleUpdate={handleUpdate}
+        modifyPost={modifyPost}
+      />
+      <PostForm
+        addPost={addPost}
+        newTitle={newTitle}
+        newBody={newBody}
+        newWriter={newWriter}
+        handleTitleChange={handleTitleChange}
+        handleWriterChange={handleWriterChange}
+        handleBodyChange={handleBodyChange}
+      />
+      <LoginForm
+        checkLogin={checkLogin}
+        username={username}
+        password={password}
+        handleUsernameChange={handleUsernameChange}
+        handlePasswordChange={handlePasswordChange}
+      />
+>>>>>>> f8c7bd14d6352d28cae8cb7e3f93eb30e6a21446:src/main/app/src/index.js
     </div>
   )
 }
