@@ -12,7 +12,7 @@ const Postbody = ({ post, visibility, modifyPost }) => {
   }
 
   return (visibility
-    ? <div className="post">
+    ? <div>
       <p>{post.writer} {post.time.toString()}</p>
       <p>{post.body}</p>
       <p><button onClick={modifyClick}>modify</button></p>
@@ -156,8 +156,7 @@ const App = () => {
         .then(response => {
           if (response.status === 200) {
             setLoggedIn(true)
-          }
-          else {
+          } else {
             console.log('Wrong login information!')
           }
         })
@@ -220,29 +219,6 @@ const App = () => {
   return (
     <div>
       <h1>Blogging Site</h1>
-<<<<<<< HEAD:frontend/src/index.js
-      <h2>Posts</h2>
-      <div>
-        <div className="postBody">
-          <Posts
-          posts={posts}
-          setVisibility={setVisibility}
-          deletePost={deletePost}
-          modifyPost={modifyPost}
-        /></div>
-        <div className="postForm">
-          <PostForm
-          addPost={addPost}
-          newTitle={newTitle}
-          newBody={newBody}
-          newWriter={newWriter}
-          handleTitleChange={handleTitleChange}
-          handleWriterChange={handleWriterChange}
-          handleBodyChange={handleBodyChange}
-        /></div>
-        
-      </div>
-=======
       <SearchForm
         makeSearch={makeSearch}
         search={search}
@@ -270,7 +246,6 @@ const App = () => {
         handleUsernameChange={handleUsernameChange}
         handlePasswordChange={handlePasswordChange}
       />
->>>>>>> f8c7bd14d6352d28cae8cb7e3f93eb30e6a21446:src/main/app/src/index.js
     </div>
   )
 }
