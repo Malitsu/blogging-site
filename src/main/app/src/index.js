@@ -3,6 +3,7 @@
 import ReactDOM from 'react-dom'
 import React, { useState, useEffect } from 'react'
 import postService from './services/posts'
+import authService from './services/auth'
 import './index.css'
 
 const Postbody = ({ post, visibility, modifyPost }) => {
@@ -121,6 +122,7 @@ const App = () => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [search, setSearch] = useState('')
+  const [isLoggedIn, setLoggedIn] = useState(false)
 
   const handleTitleChange = (event) => { setNewTitle(event.target.value) }
   const handleWriterChange = (event) => { setNewWriter(event.target.value) }
@@ -147,6 +149,19 @@ const App = () => {
   const checkLogin = (event) => {
     event.preventDefault()
     console.log(username, password)
+    if (isLoggedIn) {
+      console.log('You are already logged in!')
+    } else {
+      authService.login(username, password)
+        .then(response => {
+          if (response.status === 200) {
+            setLoggedIn(true)
+          }
+          else {
+            console.log('Wrong login information!')
+          }
+        })
+    }
     setUsername('')
     setPassword('')
   }
