@@ -77,40 +77,6 @@
 			<plugin>
 				<groupId>com.github.eirslett</groupId>
 				<artifactId>frontend-maven-plugin</artifactId>
-<<<<<<< HEAD:blogging-site/pom.xml
-				<version>1.6</version>
-				<configuration>
-					<workingDirectory>frontend</workingDirectory>
-					<installDirectory>target</installDirectory>
-				</configuration>
-				<executions>
-					<execution>
-						<id>install node and npm</id>
-						<goals>
-							<goal>install-node-and-npm</goal>
-						</goals>
-						<configuration>
-							<nodeVersion>v8.9.4</nodeVersion>
-							<npmVersion>5.6.0</npmVersion>
-						</configuration>
-					</execution>
-					<execution>
-						<id>npm install</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-						<configuration>
-							<arguments>install</arguments>
-						</configuration>
-					</execution>
-					<execution>
-						<id>npm run build</id>
-						<goals>
-							<goal>npm</goal>
-						</goals>
-						<configuration>
-							<arguments>run build</arguments>
-=======
 				<version>${frontend-maven-plugin.version}</version>
 
 				<configuration>
@@ -168,7 +134,6 @@
 									<filtering>false</filtering>
 								</resource>
 							</resources>
->>>>>>> f8c7bd14d6352d28cae8cb7e3f93eb30e6a21446:pom.xml
 						</configuration>
 					</execution>
 				</executions>
