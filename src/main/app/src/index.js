@@ -45,8 +45,13 @@ const Post = ({ isLoggedIn, post, setVisibility, deletePost, modifyPost }) => {
   )
 }
 
-const Posts = ({ isLoggedIn, posts, setVisibility, deletePost, modifyPost }) => {
-  const rows = () => posts.map(post =>
+const Posts = ({ isLoggedIn, posts, search, setVisibility, deletePost, modifyPost }) => {
+  const postsToShow = (search === '')
+    ? posts
+    : posts.filter(post => post.body.toLowerCase().includes(search.toLowerCase()) ||
+                           post.title.toLowerCase().includes(search.toLowerCase()))
+
+  const rows = () => postsToShow.map(post =>
     <Post
       isLoggedIn={isLoggedIn}
       key={post.id}
@@ -99,13 +104,12 @@ const LoginForm = ({ isLoggedIn, checkLogin, username, password, handleUsernameC
   )
 }
 
-const SearchForm = ({ makeSearch, search, handleSearchChange }) => {
+const SearchForm = ({ search, handleSearchChange }) => {
   return (
     <div>
       <h2>Search</h2>
-      <form onSubmit={makeSearch}>
+      <form>
         <div><input value={search} onChange={handleSearchChange}/></div>
-        <button type="submit">search</button>
       </form>
     </div>
   )
@@ -176,7 +180,6 @@ const App = () => {
   const makeSearch = (event) => {
     event.preventDefault()
     console.log(search)
-    setSearch('')
   }
 
   const deletePost = (id) => {
@@ -241,6 +244,7 @@ const App = () => {
       <Posts
         isLoggedIn={isLoggedIn}
         posts={posts}
+        search={search}
         setVisibility={setVisibility}
         deletePost={deletePost}
         modifyPost={modifyPost}

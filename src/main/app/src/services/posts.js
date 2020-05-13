@@ -18,7 +18,7 @@ const deletePost = (username, password, id) => {
   })
   return request.then(data => data)
 }
- 
+
 const createPost = (username, password, newPost) => {
   const request = fetch(baseUrl, {
     method: 'POST',
