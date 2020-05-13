@@ -1,4 +1,4 @@
-const baseUrl = 'http://localhost:8080/blogposts/'
+const baseUrl = 'http://localhost:8080/blogposts'
 
 const getPosts = () => {
   const request = fetch(baseUrl, {
@@ -8,7 +8,7 @@ const getPosts = () => {
 }
 
 const deletePost = (id) => {
-  const request = fetch(baseUrl + id, {
+  const request = fetch(baseUrl + '/' + id, {
     method: 'DELETE'
   })
   return request.then(data => data)
@@ -26,7 +26,7 @@ const createPost = (newPost) => {
 }
 
 const updatePost = (id, newPost) => {
-  const request = fetch(baseUrl + id, {
+  const request = fetch(baseUrl + '/' + id, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json'

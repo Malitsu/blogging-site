@@ -3,7 +3,7 @@
 import ReactDOM from 'react-dom'
 import React, { useState, useEffect } from 'react'
 import postService from './services/posts'
-import authService from './services/auth'
+import authService from './services/authentication'
 import './index.css'
 
 const Postbody = ({ post, visibility, modifyPost }) => {
@@ -110,7 +110,6 @@ const App = () => {
       .getPosts()
       .then(initialPosts => {
         setPosts(initialPosts)
-        console.log(initialPosts)
       })
   }, [])
 
@@ -148,16 +147,18 @@ const App = () => {
 
   const checkLogin = (event) => {
     event.preventDefault()
-    console.log(username, password)
     if (isLoggedIn) {
       console.log('You are already logged in!')
     } else {
-      authService.login(username, password)
+      authService
+        .login(username, password)
         .then(response => {
           if (response.status === 200) {
             setLoggedIn(true)
+            console.log('success!')
           } else {
             console.log('Wrong login information!')
+            setLoggedIn(false)
           }
         })
     }

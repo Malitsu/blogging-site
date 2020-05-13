@@ -1,6 +1,9 @@
 package fi.tuni.tiko.ahvena.bloggingsite;
 
+import org.apache.tomcat.util.http.parser.Authorization;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -59,7 +62,7 @@ public class BlogRestController {
     @CrossOrigin
     @RequestMapping(value="/auth", method= RequestMethod.GET)
     public void authenticate() {
-
+        //return new ResponseEntity<String>("heippa", HttpStatus.OK);
     }
 
 }
