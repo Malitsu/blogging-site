@@ -6,23 +6,9 @@ import postService from './services/posts'
 import authService from './services/authentication'
 import './index.css'
 
-const Postbody = ({ post, visibility, modifyPost }) => {
+const Postbody = ({ isLoggedIn, post, visibility, modifyPost, handleUpdate }) => {
   const modifyClick = () => {
     modifyPost(post.id)
-  }
-
-  return (visibility
-    ? <div>
-      <p>{post.writer} {post.time.toString()}</p>
-      <p>{post.body}</p>
-      <p><button onClick={modifyClick}>modify</button></p>
-    </div>
-    : <p></p>)
-}
-
-const Post = ({ post, setVisibility, handleUpdate, modifyPost }) => {
-  const showPost = () => {
-    setVisibility(post.id)
   }
 
   const deleteClick = () => {
@@ -31,22 +17,40 @@ const Post = ({ post, setVisibility, handleUpdate, modifyPost }) => {
       .then((answer) => handleUpdate(answer))
   }
 
+  return (visibility
+    ? <div>
+      <p>{post.writer} {post.time.toString()}</p>
+      <p>{post.body}</p>
+      <p style={{ visibility: (isLoggedIn) ? 'visible' : 'hidden' }}>
+        <button onClick={deleteClick}>delete</button>
+        <button onClick={modifyClick}>modify</button></p>
+    </div>
+    : <p></p>)
+}
+
+const Post = ({ isLoggedIn, post, setVisibility, handleUpdate, modifyPost }) => {
+  const showPost = () => {
+    setVisibility(post.id)
+  }
+
   return (
     <li>
       <span onClick={showPost}>{post.title} </span>
-      <button onClick={deleteClick}>delete</button>
       <Postbody
+        isLoggedIn={isLoggedIn}
         post={post}
         visibility={post.visibility}
         modifyPost={modifyPost}
+        handleUpdate={handleUpdate}
       />
     </li>
   )
 }
 
-const Posts = ({ posts, setVisibility, handleUpdate, modifyPost }) => {
+const Posts = ({ isLoggedIn, posts, setVisibility, handleUpdate, modifyPost }) => {
   const rows = () => posts.map(post =>
     <Post
+      isLoggedIn={isLoggedIn}
       key={post.id}
       post={post}
       setVisibility={setVisibility}
@@ -65,9 +69,9 @@ const Posts = ({ posts, setVisibility, handleUpdate, modifyPost }) => {
   )
 }
 
-const PostForm = ({ addPost, newTitle, newBody, newWriter, handleTitleChange, handleWriterChange, handleBodyChange }) => {
+const PostForm = ({ isLoggedIn, addPost, newTitle, newBody, newWriter, handleTitleChange, handleWriterChange, handleBodyChange }) => {
   return (
-    <div>
+    <div style={{ visibility: (isLoggedIn) ? 'visible' : 'collapse' }}>
       <h2>New Post</h2>
       <form onSubmit={addPost}>
         <div>title: <input value={newTitle} onChange={handleTitleChange} /></div>
@@ -79,9 +83,14 @@ const PostForm = ({ addPost, newTitle, newBody, newWriter, handleTitleChange, ha
   )
 }
 
-const LoginForm = ({ checkLogin, username, password, handleUsernameChange, handlePasswordChange }) => {
-  return (
-    <div>
+const LoginForm = ({ isLoggedIn, checkLogin, username, password, handleUsernameChange, handlePasswordChange }) => {
+  return (isLoggedIn
+    ? <div>
+      <form onSubmit={checkLogin}>
+        <button type="submit">logout</button>
+      </form>
+    </div>
+    : <div>
       <h2>Login</h2>
       <form onSubmit={checkLogin}>
         <div>username: <input value={username} onChange={handleUsernameChange}/></div>
@@ -148,7 +157,7 @@ const App = () => {
   const checkLogin = (event) => {
     event.preventDefault()
     if (isLoggedIn) {
-      console.log('You are already logged in!')
+      setLoggedIn(false)
     } else {
       authService
         .login(username, password)
@@ -226,12 +235,14 @@ const App = () => {
         handleSearchChange={handleSearchChange}
       />
       <Posts
+        isLoggedIn={isLoggedIn}
         posts={posts}
         setVisibility={setVisibility}
         handleUpdate={handleUpdate}
         modifyPost={modifyPost}
       />
       <PostForm
+        isLoggedIn={isLoggedIn}
         addPost={addPost}
         newTitle={newTitle}
         newBody={newBody}
@@ -241,6 +252,7 @@ const App = () => {
         handleBodyChange={handleBodyChange}
       />
       <LoginForm
+        isLoggedIn={isLoggedIn}
         checkLogin={checkLogin}
         username={username}
         password={password}
