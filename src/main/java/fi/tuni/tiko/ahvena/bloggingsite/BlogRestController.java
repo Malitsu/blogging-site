@@ -17,7 +17,7 @@ public class BlogRestController {
 
     //Show the blog posts
     @CrossOrigin
-    @RequestMapping("blogposts")
+    @RequestMapping(value= "/blogposts", method = RequestMethod.GET)
     public Iterable<BlogPost> showPosts() {
         return bdb.findAll();
     }

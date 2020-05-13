@@ -1,3 +1,5 @@
+const base64 = require('base-64')
+
 const baseUrl = 'http://localhost:8080/blogposts'
 
 const getPosts = () => {
@@ -7,17 +9,21 @@ const getPosts = () => {
   return request.then(jsonObject => jsonObject.json())
 }
 
-const deletePost = (id) => {
+const deletePost = (username, password, id) => {
   const request = fetch(baseUrl + '/' + id, {
-    method: 'DELETE'
+    method: 'DELETE',
+    headers: {
+      Authorization: 'Basic ' + base64.encode(username + ':' + password)
+    }
   })
   return request.then(data => data)
 }
 
-const createPost = (newPost) => {
+const createPost = (username, password, newPost) => {
   const request = fetch(baseUrl, {
     method: 'POST',
     headers: {
+      Authorization: 'Basic ' + base64.encode(username + ':' + password),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(newPost)
@@ -25,12 +31,13 @@ const createPost = (newPost) => {
   return request.then(data => data)
 }
 
-const updatePost = (id, newPost) => {
+const updatePost = (username, password, id, newPost) => {
+  const headers = new Headers()
+  headers.append('Authorization', 'Basic ' + base64.encode(username + ':' + password))
+  headers.append('Content-Type', 'application/json')
   const request = fetch(baseUrl + '/' + id, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json'
-    },
+    headers: headers,
     body: JSON.stringify(newPost)
   })
   return request.then(jsonObject => jsonObject.json())

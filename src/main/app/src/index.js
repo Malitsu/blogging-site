@@ -158,6 +158,8 @@ const App = () => {
     event.preventDefault()
     if (isLoggedIn) {
       setLoggedIn(false)
+      setUsername('')
+      setPassword('')
     } else {
       authService
         .login(username, password)
@@ -171,8 +173,6 @@ const App = () => {
           }
         })
     }
-    setUsername('')
-    setPassword('')
   }
 
   const makeSearch = (event) => {
@@ -203,7 +203,7 @@ const App = () => {
         visibility: false
       }
       postService
-        .createPost(postObject)
+        .createPost(username, password, postObject)
         .then((answer) => handleUpdate(answer))
     } else {
       console.log(matches)
@@ -216,7 +216,7 @@ const App = () => {
         id: newId
       }
       postService
-        .updatePost(matches[0].id, postObject)
+        .updatePost(username, password, matches[0].id, postObject)
         .then((answer) => handleUpdate(answer))
     }
 

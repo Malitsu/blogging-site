@@ -15,12 +15,15 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 public class BlogSecurity extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/", "/blogposts").permitAll()
-                .anyRequest().authenticated()
-                .and()
-                .httpBasic();
+        http.csrf()
+            .disable()
+            .cors()
+            .and()
+            .authorizeRequests()
+            .antMatchers("/", "/blogposts").permitAll()
+            .anyRequest().authenticated()
+            .and()
+            .httpBasic();
     }
 
     @Bean
@@ -28,10 +31,10 @@ public class BlogSecurity extends WebSecurityConfigurerAdapter {
     public UserDetailsService userDetailsService() {
         UserDetails user =
                 User.withDefaultPasswordEncoder()
-                        .username("admin")
-                        .password("admin")
-                        .roles("USER")
-                        .build();
+                    .username("admin")
+                    .password("admin")
+                    .roles("USER")
+                    .build();
 
         return new InMemoryUserDetailsManager(user);
     }
