@@ -6,15 +6,13 @@ import postService from './services/posts'
 import authService from './services/authentication'
 import './index.css'
 
-const Postbody = ({ isLoggedIn, post, visibility, modifyPost, handleUpdate }) => {
+const Postbody = ({ isLoggedIn, post, visibility, modifyPost, deletePost }) => {
   const modifyClick = () => {
     modifyPost(post.id)
   }
 
   const deleteClick = () => {
-    postService
-      .deletePost(post.id)
-      .then((answer) => handleUpdate(answer))
+    deletePost(post.id)
   }
 
   return (visibility
@@ -28,7 +26,7 @@ const Postbody = ({ isLoggedIn, post, visibility, modifyPost, handleUpdate }) =>
     : <p></p>)
 }
 
-const Post = ({ isLoggedIn, post, setVisibility, handleUpdate, modifyPost }) => {
+const Post = ({ isLoggedIn, post, setVisibility, deletePost, modifyPost }) => {
   const showPost = () => {
     setVisibility(post.id)
   }
@@ -41,20 +39,20 @@ const Post = ({ isLoggedIn, post, setVisibility, handleUpdate, modifyPost }) => 
         post={post}
         visibility={post.visibility}
         modifyPost={modifyPost}
-        handleUpdate={handleUpdate}
+        deletePost={deletePost}
       />
     </li>
   )
 }
 
-const Posts = ({ isLoggedIn, posts, setVisibility, handleUpdate, modifyPost }) => {
+const Posts = ({ isLoggedIn, posts, setVisibility, deletePost, modifyPost }) => {
   const rows = () => posts.map(post =>
     <Post
       isLoggedIn={isLoggedIn}
       key={post.id}
       post={post}
       setVisibility={setVisibility}
-      handleUpdate={handleUpdate}
+      deletePost={deletePost}
       modifyPost={modifyPost}
     />
   )
@@ -181,6 +179,12 @@ const App = () => {
     setSearch('')
   }
 
+  const deletePost = (id) => {
+    postService
+      .deletePost(username, password, id)
+      .then((answer) => handleUpdate(answer))
+  }
+
   const modifyPost = (id) => {
     const match = posts.filter(post => post.id === id)
     setNewTitle(match[0].title)
@@ -238,7 +242,7 @@ const App = () => {
         isLoggedIn={isLoggedIn}
         posts={posts}
         setVisibility={setVisibility}
-        handleUpdate={handleUpdate}
+        deletePost={deletePost}
         modifyPost={modifyPost}
       />
       <PostForm
