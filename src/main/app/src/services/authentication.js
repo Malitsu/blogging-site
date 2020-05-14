@@ -2,7 +2,7 @@
 const base64 = require('base-64')
 
 const headers = new Headers()
-const baseUrl = 'http://localhost:8080/auth'
+const baseUrl = '/auth'
 
 const login = (username, password) => {
   headers.append('Authorization', 'Basic ' + base64.encode(username + ':' + password))
