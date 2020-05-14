@@ -3,7 +3,12 @@
     padding: 5px;
     border: 2px solid #aaa;
     width: 20%;
+    background-color: #b3d9ff;
 }
 .titleList li {
     list-style-type: none;
+}
+.titleList li:hover {
+  cursor: pointer;
+  color: navy;
 }

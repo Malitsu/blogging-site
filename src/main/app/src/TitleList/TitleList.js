@@ -1,4 +1,5 @@
 import React from 'react';
+import './titleList.css'
 
 function TitleListItem(props) {
 return <li>{props.title}</li>
@@ -8,7 +9,11 @@ function TitleList(props) {
     const titles = posts.map((post) =>
     <TitleListItem key={post.id} title={post.title}/> )
     return (
-    <ul>{titles}</ul>
+    <div className="titleList">
+        <h4>All the posts</h4>
+        <ul >{titles}</ul>
+    </div>    
+    
     )
 
 }

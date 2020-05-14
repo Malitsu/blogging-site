@@ -91,15 +91,15 @@ const LoginForm = ({ isLoggedIn, checkLogin, username, password, handleUsernameC
   return (isLoggedIn
     ? <div>
       <form onSubmit={checkLogin}>
-        <button type="submit">logout</button>
+        <button type="submit">Logout</button>
       </form>
     </div>
     : <div>
-      <h2>Login</h2>
+      <h4>Login</h4>
       <form onSubmit={checkLogin}>
-        <div>username: <input value={username} onChange={handleUsernameChange}/></div>
-        <div>password: <input value={password} onChange={handlePasswordChange}/></div>
-        <button type="submit">login</button>
+        <div>Username: <input value={username} onChange={handleUsernameChange}/></div>
+        <div>Password: <input value={password} onChange={handlePasswordChange}/></div>
+        <button type="submit">Login</button>
       </form>
     </div>
   )
@@ -108,7 +108,7 @@ const LoginForm = ({ isLoggedIn, checkLogin, username, password, handleUsernameC
 const SearchForm = ({ search, handleSearchChange }) => {
   return (
     <div>
-      <h2>Search</h2>
+      <h4>Search</h4>
       <form>
         <div><input value={search} onChange={handleSearchChange}/></div>
       </form>
@@ -236,15 +236,32 @@ const App = () => {
   return (
     <div>
       <h1>Blogging Site</h1>
-      <SearchForm
+      <div className="search">
+        <SearchForm
         makeSearch={makeSearch}
         search={search}
         handleSearchChange={handleSearchChange}
+      /> 
+    
+      </div>
+      
+      <div className="loginForm">
+      <LoginForm
+        isLoggedIn={isLoggedIn}
+        checkLogin={checkLogin}
+        username={username}
+        password={password}
+        handleUsernameChange={handleUsernameChange}
+        handlePasswordChange={handlePasswordChange}
       />
-      <TitleList 
+      </div>
+      <div className="titleListForm">
+        <TitleList 
         posts={posts}
         />
-      <Posts
+        </div>
+      <div className="posts">
+        <Posts
         isLoggedIn={isLoggedIn}
         posts={posts}
         search={search}
@@ -252,6 +269,9 @@ const App = () => {
         deletePost={deletePost}
         modifyPost={modifyPost}
       />
+      </div>
+      
+      <div>
       <PostForm
         isLoggedIn={isLoggedIn}
         addPost={addPost}
@@ -262,14 +282,8 @@ const App = () => {
         handleWriterChange={handleWriterChange}
         handleBodyChange={handleBodyChange}
       />
-      <LoginForm
-        isLoggedIn={isLoggedIn}
-        checkLogin={checkLogin}
-        username={username}
-        password={password}
-        handleUsernameChange={handleUsernameChange}
-        handlePasswordChange={handlePasswordChange}
-      />
+
+      </div>
     </div>
   )
 }
