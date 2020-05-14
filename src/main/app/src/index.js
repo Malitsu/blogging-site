@@ -148,13 +148,9 @@ const App = () => {
         handleUsernameChange={handleUsernameChange}
         handlePasswordChange={handlePasswordChange}
       />
-      </div>
-      <div className="titleListForm">
-        <TitleList 
+      <TitleList
         posts={posts}
-        />
-        </div>
-      <div className="posts">
+      />
       <Posts
         isLoggedIn={isLoggedIn}
         posts={posts}
