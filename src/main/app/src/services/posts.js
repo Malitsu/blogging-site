@@ -1,6 +1,6 @@
 const base64 = require('base-64')
 
-const baseUrl = 'http://localhost:8080/blogposts'
+const baseUrl = '/blogposts'
 
 const getPosts = () => {
   const request = fetch(baseUrl, {

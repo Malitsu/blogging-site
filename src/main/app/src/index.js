@@ -2,119 +2,13 @@
 
 import ReactDOM from 'react-dom'
 import React, { useState, useEffect } from 'react'
+
 import postService from './services/posts'
 import authService from './services/authentication'
 import './index.css'
 import TitleList from './TitleList/TitleList'
-
-const Postbody = ({ isLoggedIn, post, visibility, modifyPost, deletePost }) => {
-  const modifyClick = () => {
-    modifyPost(post.id)
-  }
-
-  const deleteClick = () => {
-    deletePost(post.id)
-  }
-
-  return (visibility
-    ? <div>
-      <p>{post.writer} {post.time.toString()}</p>
-      <p>{post.body}</p>
-      <p style={{ display: (isLoggedIn) ? 'inline' : 'none' }}>
-        <button onClick={deleteClick}>delete</button>
-        <button onClick={modifyClick}>modify</button></p>
-    </div>
-    : <p></p>)
-}
-
-const Post = ({ isLoggedIn, post, setVisibility, deletePost, modifyPost }) => {
-  const showPost = () => {
-    setVisibility(post.id)
-  }
-
-  return (
-    <li>
-      <span onClick={showPost}>{post.title} </span>
-      <Postbody
-        isLoggedIn={isLoggedIn}
-        post={post}
-        visibility={post.visibility}
-        modifyPost={modifyPost}
-        deletePost={deletePost}
-      />
-    </li>
-  )
-}
-
-const Posts = ({ isLoggedIn, posts, search, setVisibility, deletePost, modifyPost }) => {
-  const postsToShow = (search === '')
-    ? posts
-    : posts.filter(post => post.body.toLowerCase().includes(search.toLowerCase()) ||
-                           post.title.toLowerCase().includes(search.toLowerCase()))
-
-  const rows = () => postsToShow.map(post =>
-    <Post
-      isLoggedIn={isLoggedIn}
-      key={post.id}
-      post={post}
-      setVisibility={setVisibility}
-      deletePost={deletePost}
-      modifyPost={modifyPost}
-    />
-  )
-
-  return (
-    <div>
-      <h2>Posts</h2>
-      <ul>
-        {rows()}
-      </ul>
-    </div>
-  )
-}
-
-const PostForm = ({ isLoggedIn, addPost, newTitle, newBody, newWriter, handleTitleChange, handleWriterChange, handleBodyChange }) => {
-  return (
-    <div style={{ display: (isLoggedIn) ? 'inline' : 'none' }}>
-      <h2>New Post</h2>
-      <form onSubmit={addPost}>
-        <div>title: <input value={newTitle} onChange={handleTitleChange} /></div>
-        <div>writer: <input value={newWriter} onChange={handleWriterChange} /></div>
-        <div>body: <input value={newBody} onChange={handleBodyChange} /></div>
-        <button type="submit">post</button>
-      </form>
-    </div>
-  )
-}
-
-const LoginForm = ({ isLoggedIn, checkLogin, username, password, handleUsernameChange, handlePasswordChange }) => {
-  return (isLoggedIn
-    ? <div>
-      <form onSubmit={checkLogin}>
-        <button type="submit">Logout</button>
-      </form>
-    </div>
-    : <div>
-      <h4>Login</h4>
-      <form onSubmit={checkLogin}>
-        <div>Username: <input value={username} onChange={handleUsernameChange}/></div>
-        <div>Password: <input value={password} onChange={handlePasswordChange}/></div>
-        <button type="submit">Login</button>
-      </form>
-    </div>
-  )
-}
-
-const SearchForm = ({ search, handleSearchChange }) => {
-  return (
-    <div>
-      <h4>Search</h4>
-      <form>
-        <div><input value={search} onChange={handleSearchChange}/></div>
-      </form>
-    </div>
-  )
-}
+import { PostForm, LoginForm, SearchForm } from './forms'
+import Posts from './components'
 
 const App = () => {
   useEffect(() => {
@@ -261,7 +155,7 @@ const App = () => {
         />
         </div>
       <div className="posts">
-        <Posts
+      <Posts
         isLoggedIn={isLoggedIn}
         posts={posts}
         search={search}
