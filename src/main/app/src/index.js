@@ -5,6 +5,7 @@ import React, { useState, useEffect } from 'react'
 import postService from './services/posts'
 import authService from './services/authentication'
 import './index.css'
+import TitleList from './TitleList/TitleList'
 
 const Postbody = ({ isLoggedIn, post, visibility, modifyPost, deletePost }) => {
   const modifyClick = () => {
@@ -241,6 +242,9 @@ const App = () => {
         search={search}
         handleSearchChange={handleSearchChange}
       />
+      <TitleList 
+        posts={posts}
+        />
       <Posts
         isLoggedIn={isLoggedIn}
         posts={posts}
