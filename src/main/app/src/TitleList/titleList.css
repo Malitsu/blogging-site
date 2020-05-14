@@ -1,0 +1,9 @@
+.titleList {
+    margin: 5px;
+    padding: 5px;
+    border: 2px solid #aaa;
+    width: 20%;
+}
+.titleList li {
+    list-style-type: none;
+}
