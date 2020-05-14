@@ -19,7 +19,7 @@ const Postbody = ({ isLoggedIn, post, visibility, modifyPost, deletePost }) => {
     ? <div>
       <p>{post.writer} {post.time.toString()}</p>
       <p>{post.body}</p>
-      <p style={{ visibility: (isLoggedIn) ? 'visible' : 'hidden' }}>
+      <p style={{ display: (isLoggedIn) ? 'inline' : 'none' }}>
         <button onClick={deleteClick}>delete</button>
         <button onClick={modifyClick}>modify</button></p>
     </div>
@@ -74,7 +74,7 @@ const Posts = ({ isLoggedIn, posts, search, setVisibility, deletePost, modifyPos
 
 const PostForm = ({ isLoggedIn, addPost, newTitle, newBody, newWriter, handleTitleChange, handleWriterChange, handleBodyChange }) => {
   return (
-    <div style={{ visibility: (isLoggedIn) ? 'visible' : 'collapse' }}>
+    <div style={{ display: (isLoggedIn) ? 'inline' : 'none' }}>
       <h2>New Post</h2>
       <form onSubmit={addPost}>
         <div>title: <input value={newTitle} onChange={handleTitleChange} /></div>
@@ -128,7 +128,7 @@ const App = () => {
   const [newTitle, setNewTitle] = useState('')
   const [newWriter, setNewWriter] = useState('')
   const [newBody, setNewBody] = useState('')
-  const [newId, setNewId] = useState(posts.length + 1)
+  const [newId, setNewId] = useState(0)
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [search, setSearch] = useState('')
@@ -168,7 +168,7 @@ const App = () => {
         .then(response => {
           if (response.status === 200) {
             setLoggedIn(true)
-            console.log('success!')
+            setNewId(posts.length + 1)
           } else {
             console.log('Wrong login information!')
             setLoggedIn(false)
@@ -198,9 +198,9 @@ const App = () => {
 
   const addPost = (event) => {
     event.preventDefault()
-
     const copyArr = [...posts]
     const matches = copyArr.filter(post => post.id === newId)
+
     if (matches.length === 0) {
       const postObject = {
         title: newTitle,
@@ -213,7 +213,6 @@ const App = () => {
         .createPost(username, password, postObject)
         .then((answer) => handleUpdate(answer))
     } else {
-      console.log(matches)
       const postObject = {
         title: newTitle,
         writer: newWriter,
