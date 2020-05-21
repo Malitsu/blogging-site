@@ -1,0 +1,15 @@
+.templateItem {
+    padding: 5px;
+    border: 2px solid teal;
+    box-shadow: 5px 5px 3px lightgrey;
+}
+.templateItem h4 {
+    text-align: center;
+}
+.templateItem p {
+    text-align: center;
+}
+.templateItem:hover {
+    cursor: pointer;
+    box-shadow: 7px 7px 3px grey;
+}
