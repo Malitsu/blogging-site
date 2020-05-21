@@ -9,6 +9,7 @@ import './index.css'
 import TitleList from './TitleList/TitleList'
 import { PostForm, LoginForm, SearchForm } from './forms'
 import Posts from './components'
+import PostTemplate from './PostTemplate/PostTemplate'
 
 const App = () => {
   useEffect(() => {
@@ -136,10 +137,6 @@ const App = () => {
         search={search}
         handleSearchChange={handleSearchChange}
       /> 
-    
-      </div>
-      
-      <div className="loginForm">
       <LoginForm
         isLoggedIn={isLoggedIn}
         checkLogin={checkLogin}
@@ -148,9 +145,17 @@ const App = () => {
         handleUsernameChange={handleUsernameChange}
         handlePasswordChange={handlePasswordChange}
       />
-      <TitleList
+      </div>
+      <div className="titleListForm">
+        <TitleList 
         posts={posts}
-      />
+        />
+        </div>
+      <div className="templates">
+        <PostTemplate 
+        posts={posts}/>
+      </div>
+      <div className="posts">
       <Posts
         isLoggedIn={isLoggedIn}
         posts={posts}
