@@ -10,6 +10,7 @@ import TitleList from './TitleList/TitleList'
 import { PostForm, LoginForm, SearchForm } from './forms'
 import Posts from './components'
 import PostTemplate from './PostTemplate/PostTemplate'
+import TitleTemplate from './TitleTemplate/TitleTemplate'
 
 const App = () => {
   useEffect(() => {
@@ -130,7 +131,7 @@ const App = () => {
 
   return (
     <div>
-      <h1>Blogging Site</h1>
+      <TitleTemplate />
       <div className="search">
         <SearchForm
         makeSearch={makeSearch}
