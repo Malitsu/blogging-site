@@ -19,8 +19,29 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: url('./assets/mehikasvi_iso.png');
+  background: url('./assets/mehikasvi_keskikoko.png') center fixed;
+  background-size: cover;
 
+  
+
+
+}
+@media screen and (max-width: 600px){
+    body {background: url('./assets/mehikasvi_pieni.png') center fixed;}
+    
+  }
+.search {
+  float: right;
+}
+.search input {
+  border: 2px solid teal;
+  width: 150px;
+  padding: 3px;
+  margin-bottom: 2px;
+}
+.search button {
+  border: 2px solid teal;
+  color: #28472e;
 }
 
 code {

@@ -1,7 +1,24 @@
 
 h1 {
     font-family: 'Indie Flower', cursive;
+    text-align:center;
+    font-size: 50px;
+    text-shadow: 2px 2px 2px #28472e;
+    color: white;
 }
 h3 {
     font-family: 'Indie Flower', cursive;
+    text-align: center;
+    font-size: 30px;
+    text-shadow: 2px 2px 2px #28472e;
+    color: white;
+}
+.titleTemplate {
+    background-color: #55B266;
+    width: 100%;
+    padding: 10px;
+}
+@media screen and (max-width: 600px) {
+    h1 {font-size: 30px;}
+    h3 {font-size: 24px;}
 }

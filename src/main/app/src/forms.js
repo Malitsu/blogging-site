@@ -23,11 +23,10 @@ const LoginForm = ({ isLoggedIn, checkLogin, username, password, handleUsernameC
       </form>
     </div>
     : <div>
-      <h2>Login</h2>
       <form onSubmit={checkLogin}>
-        <div>username: <input value={username} onChange={handleUsernameChange}/></div>
-        <div>password: <input value={password} onChange={handlePasswordChange}/></div>
-        <button type="submit">login</button>
+        <div><input placeholder="Username" value={username} onChange={handleUsernameChange}/></div>
+        <div><input placeholder="Password" value={password} onChange={handlePasswordChange}/></div>
+        <button type="submit">Login</button>
       </form>
     </div>
   )
@@ -36,9 +35,8 @@ const LoginForm = ({ isLoggedIn, checkLogin, username, password, handleUsernameC
 const SearchForm = ({ search, handleSearchChange }) => {
   return (
     <div>
-      <h2>Search</h2>
       <form>
-        <div><input value={search} onChange={handleSearchChange}/></div>
+        <div><input placeholder="Search" value={search} onChange={handleSearchChange}/></div>
       </form>
     </div>
   )
