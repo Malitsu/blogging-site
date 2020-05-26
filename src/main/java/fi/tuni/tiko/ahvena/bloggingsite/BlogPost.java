@@ -1,5 +1,6 @@
 package fi.tuni.tiko.ahvena.bloggingsite;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -11,9 +12,11 @@ String title, String body, Date time and String writer.
 @Entity
 public class BlogPost {
     public String title;
-    public String body;
     public Date time;
     public String writer;
+
+    @Column(columnDefinition = "longtext")
+    public String body;
 
     @Id
     @GeneratedValue
