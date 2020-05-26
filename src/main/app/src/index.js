@@ -132,59 +132,59 @@ const App = () => {
   return (
     <div>
       <TitleTemplate />
-      <div className="main">  
-      <div className="right">
+      <div className="main">
+        <div className="right">
           <div className="search">
-        <SearchForm
-        makeSearch={makeSearch}
-        search={search}
-        handleSearchChange={handleSearchChange}
-      /> 
-      <LoginForm
-        isLoggedIn={isLoggedIn}
-        checkLogin={checkLogin}
-        username={username}
-        password={password}
-        handleUsernameChange={handleUsernameChange}
-        handlePasswordChange={handlePasswordChange}
-      />
-      </div>
-      <div className="titleListForm">
-        <TitleList 
-        posts={posts}
-        />
+            <SearchForm
+              makeSearch={makeSearch}
+              search={search}
+              handleSearchChange={handleSearchChange}
+            />
+            <LoginForm
+              isLoggedIn={isLoggedIn}
+              checkLogin={checkLogin}
+              username={username}
+              password={password}
+              handleUsernameChange={handleUsernameChange}
+              handlePasswordChange={handlePasswordChange}
+            />
+          </div>
+          <div className="titleListForm">
+            <TitleList
+              posts={posts}
+            />
+          </div>
         </div>
-        </div>    
 
-      <div className="templates">
-        <PostTemplate 
-         posts={posts}
-         />
-      </div>
+        <div className="templates">
+          <PostTemplate
+            posts={posts}
+          />
+        </div>
       </div>
 
       <div className="posts">
-      <Posts
-        isLoggedIn={isLoggedIn}
-        posts={posts}
-        search={search}
-        setVisibility={setVisibility}
-        deletePost={deletePost}
-        modifyPost={modifyPost}
-      />
+        <Posts
+          isLoggedIn={isLoggedIn}
+          posts={posts}
+          search={search}
+          setVisibility={setVisibility}
+          deletePost={deletePost}
+          modifyPost={modifyPost}
+        />
       </div>
-      
+
       <div>
-      <PostForm
-        isLoggedIn={isLoggedIn}
-        addPost={addPost}
-        newTitle={newTitle}
-        newBody={newBody}
-        newWriter={newWriter}
-        handleTitleChange={handleTitleChange}
-        handleWriterChange={handleWriterChange}
-        handleBodyChange={handleBodyChange}
-      />
+        <PostForm
+          isLoggedIn={isLoggedIn}
+          addPost={addPost}
+          newTitle={newTitle}
+          newBody={newBody}
+          newWriter={newWriter}
+          handleTitleChange={handleTitleChange}
+          handleWriterChange={handleWriterChange}
+          handleBodyChange={handleBodyChange}
+        />
 
       </div>
     </div>
