@@ -2,17 +2,28 @@
 import React from 'react'
 import './PostTemplate.css'
 
-function TemplateItem (props) {
+const TemplateItem = (props) => {
+  const body = props.body.split('\n').map(item => {
+    return (
+      <span key={item.id}>
+        {item}
+        <br/>
+      </span>
+    )
+  })
+
+  console.log(props.body)
   return (
     <div className="templateItem">
       <h4>{props.title}</h4>
       <p>{props.writer}</p>
       <p>{props.time}</p>
-      <p>{props.body}</p>
+      <p>{body}</p>
     </div>
   )
 }
-function PostTemplate (props) {
+
+const PostTemplate = (props) => {
   const posts = props.posts
   const template = posts.map(post =>
     <TemplateItem
@@ -28,4 +39,5 @@ function PostTemplate (props) {
     </div>
   )
 }
+
 export default PostTemplate
