@@ -11,9 +11,9 @@
     display: block;
     width: 100%;
 }
-.templateItem:hover {
+.templateItem h4:hover {
     cursor: pointer;
-    box-shadow: 7px 7px 3px grey;
+    color: navy;
 }
 .template {
     display: grid;

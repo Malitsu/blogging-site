@@ -30,6 +30,7 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [search, setSearch] = useState('')
   const [isLoggedIn, setLoggedIn] = useState(false)
+  const [isFullSize, setNewSize] = useState(false)
 
   const handleTitleChange = (event) => { setNewTitle(event.target.value) }
   const handleWriterChange = (event) => { setNewWriter(event.target.value) }
@@ -71,6 +72,13 @@ const App = () => {
             setLoggedIn(false)
           }
         })
+    }
+  }
+  const setPostSize = (event) => {
+    if(isFullSize) {
+      setNewSize(false);
+    } else {
+      setNewSize(true);
     }
   }
 
@@ -158,7 +166,13 @@ const App = () => {
 
       <div className="templates">
         <PostTemplate 
-         posts={posts}
+          posts={posts}
+          isLoggedIn={isLoggedIn}
+          search={search}
+          setVisibility={setVisibility}
+          deletePost={deletePost}
+          modifyPost={modifyPost}
+          setPostSize={setPostSize}
          />
       </div>
       </div>
