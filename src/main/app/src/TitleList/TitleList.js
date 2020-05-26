@@ -1,5 +1,4 @@
 import React from 'react';
-import './titleList.css'
 
 function TitleListItem(props) {
 return <li>{props.title}</li>

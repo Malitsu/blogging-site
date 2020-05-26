@@ -30,21 +30,50 @@ body {
     body {background: url('./assets/mehikasvi_pieni.png') center fixed;}
     
   }
-.search {
-  float: right;
-}
+
 .search input {
   border: 2px solid teal;
   width: 150px;
   padding: 3px;
   margin-bottom: 2px;
 }
-.search button {
+button {
   border: 2px solid teal;
   color: #28472e;
+  margin: 2px;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.titleList {
+  padding: 5px;
+  border: 2px solid teal;
+  width: 25%;
+}
+.titleList li {
+  list-style-type: none;
+}
+.titleList li:hover {
+cursor: pointer;
+color: navy;
+}
+.titleList h4 {
+font-family: 'Indie Flower';
+text-align: center;
+font-size: 24px;
+text-shadow: 1px 1px 1px grey;
+}
+@media screen and (max-width: 600px) {
+.titleList {width: 80%}
+}
+.search {
+  float: right;
+}
+.titleListForm {
+  margin-bottom: 5px;
+}
+
+

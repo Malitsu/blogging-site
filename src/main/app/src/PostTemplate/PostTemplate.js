@@ -1,13 +1,24 @@
 import React from 'react';
 import './PostTemplate.css'
 
+function TemplateItem(props) {
+  return (
+    <div className="templateItem"> 
+      <h4>{props.title}</h4>
+        <p>{props.writer}</p>
+        <p>{props.time}</p>
+        <p>{props.body}</p>
+    </div>
+  )
+
+}
 function PostTemplate(props) {
+  const posts = props.posts;
+  const template = posts.map(post =>
+    <TemplateItem title={post.title} writer={post.writer} time={post.time} body={post.body}/>)
     return (
-      <div className="templateItem">
-        <h4>{props.posts.title}</h4>
-        <p>{props.posts.writer}</p>
-        <p>{props.posts.time}</p>
-        <p>{props.posts.body}</p>
+      <div className="template">
+        {template}
       </div>
     )
 }

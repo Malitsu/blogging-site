@@ -132,7 +132,9 @@ const App = () => {
   return (
     <div>
       <TitleTemplate />
-      <div className="search">
+      <div className="main">  
+      <div className="right">
+          <div className="search">
         <SearchForm
         makeSearch={makeSearch}
         search={search}
@@ -152,10 +154,15 @@ const App = () => {
         posts={posts}
         />
         </div>
+        </div>    
+
       <div className="templates">
         <PostTemplate 
-        posts={posts}/>
+         posts={posts}
+         />
       </div>
+      </div>
+
       <div className="posts">
       <Posts
         isLoggedIn={isLoggedIn}

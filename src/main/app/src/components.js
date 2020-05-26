@@ -15,8 +15,8 @@ const Postbody = ({ isLoggedIn, post, visibility, modifyPost, deletePost }) => {
       <p>{post.writer} {post.time.toString()}</p>
       <p>{post.body}</p>
       <p style={{ display: (isLoggedIn) ? 'inline' : 'none' }}>
-        <button onClick={deleteClick}>delete</button>
-        <button onClick={modifyClick}>modify</button></p>
+        <button onClick={deleteClick}>Delete</button>
+        <button onClick={modifyClick}>Modify</button></p>
     </div>
     : <p></p>)
 }

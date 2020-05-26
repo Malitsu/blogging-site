@@ -1,15 +1,29 @@
 .templateItem {
     padding: 5px;
     border: 2px solid teal;
-    box-shadow: 5px 5px 3px lightgrey;
+    box-shadow: 3px 3px 2px lightgrey;
+    border-radius: 8px;
+    background-color: seashell;
 }
-.templateItem h4 {
-    text-align: center;
-}
+
 .templateItem p {
     text-align: center;
+    display: block;
+    width: 100%;
 }
 .templateItem:hover {
     cursor: pointer;
     box-shadow: 7px 7px 3px grey;
 }
+.template {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-gap: 15px;
+}
+.templateItem h4 {
+    font-family: 'Indie Flower';
+    text-align: center;
+    font-size: 24px;
+    text-shadow: 1px 1px 1px grey;
+    text-align: center;
+    }
