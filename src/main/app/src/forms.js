@@ -8,7 +8,7 @@ const PostForm = ({ isLoggedIn, addPost, newTitle, newBody, newWriter, handleTit
       <form onSubmit={addPost}>
         <div>title: <input value={newTitle} onChange={handleTitleChange} /></div>
         <div>writer: <input value={newWriter} onChange={handleWriterChange} /></div>
-        <div>body: <input value={newBody} onChange={handleBodyChange} /></div>
+        <div>body: <textarea value={newBody} onChange={handleBodyChange} style={{ height: 500, width: 500 }} /></div>
         <button type="submit">post</button>
       </form>
     </div>

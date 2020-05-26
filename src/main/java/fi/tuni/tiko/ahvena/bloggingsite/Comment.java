@@ -6,14 +6,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.util.Date;
 /*
-This class holds the BlogPost object which has parameters
+This class holds the BlogComment object which has parameters
 String title, String body, Date time and String writer.
  */
 @Entity
-public class BlogPost {
+public class Comment {
     public String title;
     public Date time;
     public String writer;
+    public int likes;
+
+    @Override
+    public String toString() {
+        return "BlogComment{" +
+                "title='" + title + '\'' +
+                ", time=" + time +
+                ", writer='" + writer + '\'' +
+                ", likes=" + likes +
+                ", body='" + body + '\'' +
+                ", id=" + id +
+                '}';
+    }
 
     @Column(columnDefinition = "longtext")
     public String body;
@@ -21,17 +34,6 @@ public class BlogPost {
     @Id
     @GeneratedValue
     public int id;
-
-    @Override
-    public String toString() {
-        return "BlogPost{" +
-                "title='" + title + '\'' +
-                ", textBody='" + body + '\'' +
-                ", publishingTime='" + time + '\'' +
-                ", publisher='" + writer + '\'' +
-                ", id=" + id +
-                '}';
-    }
 
     public String getTitle() {
         return title;
@@ -65,11 +67,16 @@ public class BlogPost {
         this.writer = writer;
     }
 
-    public BlogPost(String title, String body, Date time, String writer) {
+    public int getLikes() { return likes; }
+
+    public void setLikes(int likes) { this.likes = likes; }
+
+    public Comment(String title, String body, Date time, String writer, int likes) {
         this.title = title;
         this.body = body;
         this.time = time;
         this.writer = writer;
+        this.likes = likes;
     }
-    public BlogPost() {}
+    public Comment() {}
 }
