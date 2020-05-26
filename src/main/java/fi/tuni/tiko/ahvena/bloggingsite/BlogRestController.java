@@ -5,7 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import javax.annotation.PostConstruct;
 import java.util.Optional;
 
 @RestController
@@ -14,6 +14,10 @@ public class BlogRestController {
     //Create the database object
     @Autowired
     BlogDatabase bdb;
+
+    @PostConstruct
+    public void init() {
+    }
 
     //Show the blog posts
     @CrossOrigin
