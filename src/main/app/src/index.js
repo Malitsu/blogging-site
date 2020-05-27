@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom'
 import React, { useState, useEffect } from 'react'
 
 import postService from './services/posts'
+import commentService from './services/comments'
 import authService from './services/authentication'
 import './index.css'
 import TitleList from './TitleList/TitleList'
@@ -21,7 +22,16 @@ const App = () => {
       })
   }, [])
 
+  useEffect(() => {
+    commentService
+      .getComments()
+      .then(initialComments => {
+        setComments(initialComments)
+      })
+  }, [])
+
   const [posts, setPosts] = useState([])
+  const [comments, setComments] = useState([])
   const [newTitle, setNewTitle] = useState('')
   const [newWriter, setNewWriter] = useState('')
   const [newBody, setNewBody] = useState('')
@@ -30,6 +40,8 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [search, setSearch] = useState('')
   const [isLoggedIn, setLoggedIn] = useState(false)
+  const [newComment, setComment] = useState('')
+  const [newCommenter, setCommenter] = useState('')
 
   const handleTitleChange = (event) => { setNewTitle(event.target.value) }
   const handleWriterChange = (event) => { setNewWriter(event.target.value) }
@@ -127,6 +139,51 @@ const App = () => {
     setNewWriter('')
     setNewBody('')
     setNewId(posts.length + 1)
+  }
+
+  const deleteComment = (id) => {
+    commentService
+      .deleteComment(username, password, id)
+      .then((answer) => handleUpdate(answer))
+  }
+
+  const modifyComment = (id) => {
+    const match = comments.filter(comment => comment.id === id)
+    setComment(match[0].body)
+    setCommenter(match[0].writer)
+    setNewId(match[0].blogpost)
+  }
+
+  const addComment = (event) => {
+    event.preventDefault()
+    const copyArr = [...comments]
+    const matches = copyArr.filter(comment => comment.id === newId)
+
+    if (matches.length === 0) {
+      const commentObject = {
+        writer: newCommenter,
+        time: new Date().toISOString(),
+        body: newComment,
+        blogPost: newId
+      }
+      postService
+        .createComment(username, password, commentObject)
+        .then((answer) => handleUpdate(answer))
+    } else {
+      const commentObject = {
+        writer: newCommenter,
+        time: matches[0].time,
+        body: newComment,
+        id: matches[0].id,
+        blogPost: matches[0].blogPost
+      }
+      postService
+        .updatePost(username, password, matches[0].id, commentObject)
+        .then((answer) => handleUpdate(answer))
+    }
+
+    setComment('')
+    setCommenter('')
   }
 
   return (

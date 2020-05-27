@@ -12,7 +12,6 @@ const TemplateItem = (props) => {
     )
   })
 
-  console.log(props.body)
   return (
     <div className="templateItem">
       <h4>{props.title}</h4>
