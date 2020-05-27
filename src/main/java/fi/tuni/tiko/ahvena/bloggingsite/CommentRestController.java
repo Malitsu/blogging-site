@@ -53,7 +53,6 @@ public class CommentRestController {
         return cdb.findById(commentId)
                 .map(comment -> {
                     c.setBody(comment.getBody());
-                    c.setTitle(comment.getTitle());
                     c.setWriter(comment.getWriter());
                     c.setLikes(comment.getLikes());
                     return cdb.save(comment);

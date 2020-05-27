@@ -1,9 +1,6 @@
 package fi.tuni.tiko.ahvena.bloggingsite;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 /*
 This class holds the BlogComment object which has parameters
@@ -11,36 +8,28 @@ String title, String body, Date time and String writer.
  */
 @Entity
 public class Comment {
-    public String title;
-    public Date time;
-    public String writer;
-    public int likes;
-
-    @Override
-    public String toString() {
-        return "BlogComment{" +
-                "title='" + title + '\'' +
-                ", time=" + time +
-                ", writer='" + writer + '\'' +
-                ", likes=" + likes +
-                ", body='" + body + '\'' +
-                ", id=" + id +
-                '}';
-    }
-
-    @Column(columnDefinition = "longtext")
+    private Date time;
+    private String writer;
+    private int likes;
     public String body;
 
     @Id
     @GeneratedValue
     public int id;
 
-    public String getTitle() {
-        return title;
-    }
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "fk_blog_post")
+    private BlogPost blogPost;
 
-    public void setTitle(String title) {
-        this.title = title;
+    @Override
+    public String toString() {
+        return "BlogComment{" +
+                ", time=" + time +
+                ", writer='" + writer + '\'' +
+                ", likes=" + likes +
+                ", body='" + body + '\'' +
+                ", id=" + id +
+                '}';
     }
 
     public String getBody() {
@@ -71,8 +60,7 @@ public class Comment {
 
     public void setLikes(int likes) { this.likes = likes; }
 
-    public Comment(String title, String body, Date time, String writer, int likes) {
-        this.title = title;
+    public Comment(String body, Date time, String writer, int likes) {
         this.body = body;
         this.time = time;
         this.writer = writer;

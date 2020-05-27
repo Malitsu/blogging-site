@@ -1,26 +1,29 @@
 package fi.tuni.tiko.ahvena.bloggingsite;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
 /*
 This class holds the BlogPost object which has parameters
 String title, String body, Date time and String writer.
  */
 @Entity
 public class BlogPost {
-    public String title;
-    public Date time;
-    public String writer;
+    private String title;
+    private Date time;
+    private String writer;
 
     @Column(columnDefinition = "longtext")
-    public String body;
+    private String body;
 
     @Id
     @GeneratedValue
-    public int id;
+    private int id;
+
+    @OneToMany(mappedBy = "blogPost")
+    private List<Comment> comments = new ArrayList<>();
 
     @Override
     public String toString() {

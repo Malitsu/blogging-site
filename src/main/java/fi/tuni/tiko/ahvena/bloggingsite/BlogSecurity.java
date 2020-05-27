@@ -20,7 +20,7 @@ public class BlogSecurity extends WebSecurityConfigurerAdapter {
             .cors()
             .and()
             .authorizeRequests()
-            .antMatchers("/", "/blogposts").permitAll()
+            .antMatchers("/", "/blogposts", "/comments").permitAll()
             .anyRequest().authenticated()
             .and()
             .httpBasic();
