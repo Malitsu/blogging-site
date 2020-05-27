@@ -74,11 +74,13 @@ const App = () => {
         })
     }
   }
-  const setPostSize = (event) => {
+  const setPostSize = () => {
     if(isFullSize) {
       setNewSize(false);
+      console.log('Full size: false')
     } else {
       setNewSize(true);
+      console.log('Full size: true')
     }
   }
 
@@ -142,27 +144,31 @@ const App = () => {
       <TitleTemplate />
       <div className="main">  
       <div className="right">
-          <div className="search">
-        <SearchForm
-        makeSearch={makeSearch}
-        search={search}
-        handleSearchChange={handleSearchChange}
-      /> 
-      <LoginForm
-        isLoggedIn={isLoggedIn}
-        checkLogin={checkLogin}
-        username={username}
-        password={password}
-        handleUsernameChange={handleUsernameChange}
-        handlePasswordChange={handlePasswordChange}
-      />
-      </div>
+        <div className="search">
+          <SearchForm
+          makeSearch={makeSearch}
+          search={search}
+          handleSearchChange={handleSearchChange}
+        /> 
+        </div>
+        <div className="loginForm">
+          <LoginForm
+          isLoggedIn={isLoggedIn}
+          checkLogin={checkLogin}
+          username={username}
+          password={password}
+          handleUsernameChange={handleUsernameChange}
+          handlePasswordChange={handlePasswordChange}   
+        
+        />
+        </div>
+       </div>
       <div className="titleListForm">
         <TitleList 
         posts={posts}
         />
         </div>
-        </div>    
+
 
       <div className="templates">
         <PostTemplate 
@@ -173,6 +179,7 @@ const App = () => {
           deletePost={deletePost}
           modifyPost={modifyPost}
           setPostSize={setPostSize}
+          isFullSize={isFullSize}
          />
       </div>
       </div>

@@ -1,10 +1,23 @@
 import React from 'react';
 import './PostTemplate.css'
 
-function TemplateItem(props) {
+function FullSizePost(props) {
   return (
+    <div>
+      <h4 onClick={props.setPostSize}>{props.title}</h4>
+      <p>{props.writer}</p>
+      <p>{props.time}</p>
+      <p>{props.body}</p>
+    </div>
+  )
+}
+
+function TemplateItem(props) {
+
+  if(!props.isFullSize) {
+    return (
     <div className="templateItem"> 
-      <h4 onClick="setPostSize">{props.title}</h4>
+      <h4 onClick={props.setPostSize}>{props.title}</h4>
         <p>{props.writer}</p>
         <p>{props.time}</p>
         <p>{props.body}</p>
@@ -14,7 +27,29 @@ function TemplateItem(props) {
         modifyPost={props.modifyPost}
         deletePost={props.deletePost}/>
     </div>
-  )
+  )}
+  else {
+    return (
+      
+      <div className="templateItemFullSize">
+        
+        <FullSizePost 
+        key={props.id}
+        title={props.title}
+        writer={props.writer}
+        time={props.time}
+        body={props.body}
+
+        />
+        <Buttons 
+        isLoggedIn={props.isLoggedIn}
+        id={props.id}
+        modifyPost={props.modifyPost}
+        deletePost={props.deletePost}/>
+    </div>
+    )
+  }
+
 
 }
 
@@ -50,7 +85,11 @@ function PostTemplate(props) {
       id={post.id} 
       isLoggedIn={props.isLoggedIn}
       modifyPost={props.modifyPost}
-      deletePost={props.deletePost}/>)
+      deletePost={props.deletePost}
+      setPostSize={props.setPostSize}
+      isFullSize={props.isFullSize}
+      posts={posts}
+      />)
     return (
       <div className="template">
         {template}

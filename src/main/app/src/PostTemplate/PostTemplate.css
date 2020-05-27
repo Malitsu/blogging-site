@@ -1,9 +1,13 @@
 .templateItem {
     padding: 5px;
+    padding-bottom: 15px;
     border: 2px solid teal;
     box-shadow: 3px 3px 2px lightgrey;
     border-radius: 8px;
     background-color: seashell;
+    height: 400px;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .templateItem p {
@@ -13,7 +17,7 @@
 }
 .templateItem h4:hover {
     cursor: pointer;
-    color: navy;
+    color: #55B266;
 }
 .template {
     display: grid;
@@ -25,5 +29,22 @@
     text-align: center;
     font-size: 24px;
     text-shadow: 1px 1px 1px grey;
-    text-align: center;
     }
+.templateItemFullSize {
+    padding: 5px;
+    padding-bottom: 15px;
+    border: 2px solid teal;
+    box-shadow: 3px 3px 2px lightgrey;
+    border-radius: 8px;
+    background-color: seashell;
+}
+.templateItemFullSize h4 {
+    font-family: 'Indie Flower';
+    text-align: center;
+    font-size: 24px;
+    text-shadow: 1px 1px 1px grey;
+    }
+.templateItemFullSize h4:hover {
+    cursor: pointer;
+    color: #55B266;
+}
