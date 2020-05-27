@@ -13,6 +13,7 @@ public class BloggingSiteApplication implements CommandLineRunner {
 //Create the object for the database
 	@Autowired
 	BlogDatabase bdb;
+	CommentDatabase cdb;
 
 	public static void main(String[] args) {
 		SpringApplication.run(BloggingSiteApplication.class, args);
