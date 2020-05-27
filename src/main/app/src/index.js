@@ -228,6 +228,10 @@ const App = () => {
           setVisibility={setVisibility}
           deletePost={deletePost}
           modifyPost={modifyPost}
+          comments={comments}
+          addComment={addComment}
+          deleteComment={deleteComment}
+          modifyComment={modifyComment}
         />
       </div>
 
