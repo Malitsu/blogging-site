@@ -4,12 +4,12 @@ import React from 'react'
 const PostForm = ({ isLoggedIn, addPost, newTitle, newBody, newWriter, handleTitleChange, handleWriterChange, handleBodyChange }) => {
   return (
     <div style={{ display: (isLoggedIn) ? 'inline' : 'none' }}>
-      <h2>New Post</h2>
+      <h4>New Post</h4>
       <form onSubmit={addPost}>
-        <div>title: <input value={newTitle} onChange={handleTitleChange} /></div>
-        <div>writer: <input value={newWriter} onChange={handleWriterChange} /></div>
-        <div>body: <textarea value={newBody} onChange={handleBodyChange} style={{ height: 500, width: 500 }} /></div>
-        <button type="submit">post</button>
+        <div><input placeholder="Title" value={newTitle} onChange={handleTitleChange} /></div>
+        <div><input placeholder="Writer" value={newWriter} onChange={handleWriterChange} /></div>
+        <div><textarea placeholder="Text" value={newBody} onChange={handleBodyChange} style={{ height: 500, width: 500 }} /></div>
+        <button type="submit">Post</button>
       </form>
     </div>
   )
@@ -19,7 +19,7 @@ const LoginForm = ({ isLoggedIn, checkLogin, username, password, handleUsernameC
   return (isLoggedIn
     ? <div>
       <form onSubmit={checkLogin}>
-        <button type="submit">logout</button>
+        <button type="submit">Logout</button>
       </form>
     </div>
     : <div>

@@ -42,6 +42,7 @@ const App = () => {
   const [isLoggedIn, setLoggedIn] = useState(false)
   const [newComment, setComment] = useState('')
   const [newCommenter, setCommenter] = useState('')
+  const [isFullSize, setNewSize] = useState(false)
 
   const handleTitleChange = (event) => { setNewTitle(event.target.value) }
   const handleWriterChange = (event) => { setNewWriter(event.target.value) }
@@ -83,6 +84,15 @@ const App = () => {
             setLoggedIn(false)
           }
         })
+    }
+  }
+  const setPostSize = () => {
+    if (isFullSize) {
+      setNewSize(false)
+      console.log('Full size: false')
+    } else {
+      setNewSize(true)
+      console.log('Full size: true')
     }
   }
 
@@ -197,6 +207,8 @@ const App = () => {
               search={search}
               handleSearchChange={handleSearchChange}
             />
+          </div>
+          <div className="loginForm">
             <LoginForm
               isLoggedIn={isLoggedIn}
               checkLogin={checkLogin}
@@ -204,18 +216,26 @@ const App = () => {
               password={password}
               handleUsernameChange={handleUsernameChange}
               handlePasswordChange={handlePasswordChange}
+
             />
           </div>
-          <div className="titleListForm">
-            <TitleList
-              posts={posts}
-            />
-          </div>
+        </div>
+        <div className="titleListForm">
+          <TitleList
+            posts={posts}
+          />
         </div>
 
         <div className="templates">
           <PostTemplate
             posts={posts}
+            isLoggedIn={isLoggedIn}
+            search={search}
+            setVisibility={setVisibility}
+            deletePost={deletePost}
+            modifyPost={modifyPost}
+            setPostSize={setPostSize}
+            isFullSize={isFullSize}
           />
         </div>
       </div>

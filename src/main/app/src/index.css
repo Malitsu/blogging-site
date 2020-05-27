@@ -31,16 +31,26 @@ body {
     
   }
 
-.search input {
+.right input {
   border: 2px solid teal;
   width: 150px;
   padding: 3px;
+}
+.search input {
+  margin-bottom: 5px;
+}
+.loginForm input {
   margin-bottom: 2px;
 }
 button {
   border: 2px solid teal;
   color: #28472e;
   margin: 2px;
+}
+button:hover {
+  cursor: pointer;
+  background-color: #55B266;
+  color: white;
 }
 
 code {
@@ -58,7 +68,7 @@ code {
 }
 .titleList li:hover {
 cursor: pointer;
-color: navy;
+color: #55B266;
 }
 .titleList h4 {
 font-family: 'Indie Flower';
@@ -74,6 +84,11 @@ text-shadow: 1px 1px 1px grey;
 }
 .titleListForm {
   margin-bottom: 5px;
+}
+h4 {
+  font-family: 'Indie Flower';
+  font-size: 24px;
+  text-shadow: 1px 1px 1px grey;
 }
 
 
