@@ -40,8 +40,8 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [search, setSearch] = useState('')
   const [isLoggedIn, setLoggedIn] = useState(false)
-  const [newComment, setComment] = useState('')
-  const [newCommenter, setCommenter] = useState('')
+  /* const [newComment, setComment] = useState('')
+  const [newCommenter, setCommenter] = useState('') */
   const [isFullSize, setNewSize] = useState(false)
 
   const handleTitleChange = (event) => { setNewTitle(event.target.value) }
@@ -151,7 +151,7 @@ const App = () => {
     setNewId(posts.length + 1)
   }
 
-  const deleteComment = (id) => {
+  /* const deleteComment = (id) => {
     commentService
       .deleteComment(username, password, id)
       .then((answer) => handleUpdate(answer))
@@ -194,7 +194,7 @@ const App = () => {
 
     setComment('')
     setCommenter('')
-  }
+  } */
 
   return (
     <div>
@@ -230,8 +230,6 @@ const App = () => {
           <PostTemplate
             posts={posts}
             isLoggedIn={isLoggedIn}
-            search={search}
-            setVisibility={setVisibility}
             deletePost={deletePost}
             modifyPost={modifyPost}
             setPostSize={setPostSize}
@@ -249,9 +247,6 @@ const App = () => {
           deletePost={deletePost}
           modifyPost={modifyPost}
           comments={comments}
-          addComment={addComment}
-          deleteComment={deleteComment}
-          modifyComment={modifyComment}
         />
       </div>
 

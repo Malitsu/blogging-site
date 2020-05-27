@@ -1,38 +1,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-
-const Comment = ({ writer, time, likes, body }) => {
-  return (
-    <p>
-      <span style={{ color: 'green' }}>{writer}  {time}</span><br/>
-      {body}<br/>
-      {likes} 👍
-    </p>
-  )
-}
-
-const Comments = ({ postComments }) => {
-  const rows = () => postComments.map(comment =>
-    <Comment
-      key={comment.id}
-      writer={comment.writer}
-      time={comment.time}
-      likes={comment.likes}
-      body={comment.body}
-    />
-  )
-
-  return (
-    <div>
-      <h5>Comments</h5>
-      <ul>
-        {rows()}
-      </ul>
-    </div>
-  )
-}
+import Comments from './Comments'
 
 const Postbody = ({ isLoggedIn, post, visibility, modifyPost, deletePost, postComments }) => {
+  const comments = postComments.filter(comment => comment.blogPost === post.id)
+
   const modifyClick = () => {
     modifyPost(post.id)
   }
@@ -49,7 +21,7 @@ const Postbody = ({ isLoggedIn, post, visibility, modifyPost, deletePost, postCo
         <button onClick={deleteClick}>Delete</button>
         <button onClick={modifyClick}>Modify</button></p>
       <Comments
-        postComments={postComments}
+        comments={comments}
       />
     </div>
     : <p></p>)
@@ -77,7 +49,7 @@ const Post = ({ isLoggedIn, post, setVisibility, deletePost, modifyPost, comment
   )
 }
 
-const Posts = ({ isLoggedIn, posts, search, setVisibility, deletePost, modifyPost, comments, addComment, deleteComment, modifyComment }) => {
+const Posts = ({ isLoggedIn, posts, search, setVisibility, deletePost, modifyPost, comments }) => {
   const postsToShow = (search === '')
     ? posts
     : posts.filter(post => post.body.toLowerCase().includes(search.toLowerCase()) ||
