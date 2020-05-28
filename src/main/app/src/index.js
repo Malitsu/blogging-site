@@ -77,10 +77,13 @@ const App = () => {
   }
 
   const setPostSize = (id) => {
-    if (isFullSize) {
+    if (isFullSize && id!='') {
+      setFullSizeId(id)
+    }
+    else if(isFullSize) {
       setNewSize(false)
       setFullSizeId('')
-    } else {
+    }else {
       setNewSize(true)
       setFullSizeId(id)
       
@@ -209,6 +212,7 @@ const App = () => {
         <div className="titleListForm">
           <TitleList
             posts={posts}
+            setPostSize={setPostSize}
           />
         </div>
 

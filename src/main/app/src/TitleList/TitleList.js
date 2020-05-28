@@ -1,15 +1,21 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 
-const TitleListItem = ({ title }) => {
-  return <li>{title}</li>
+const TitleListItem = ({ title, id, setPostSize }) => {
+    const changePostSize = () => {
+        setPostSize(id);
+    }
+  return <li onClick={changePostSize}>{title}</li>
 }
 
-const TitleList = ({ posts }) => {
+
+const TitleList = ({ posts, setPostSize }) => {
   const titles = posts.map(post =>
     <TitleListItem
       key={post.id}
       title={post.title}
+      id={post.id}
+      setPostSize={setPostSize}
     />)
 
   return (
