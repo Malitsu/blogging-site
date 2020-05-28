@@ -1,23 +1,19 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
-import Comments from './../Comments'
 import './PostTemplate.css'
 
-const FullSizePost = ({ setPostSize, title, writer, time, body, postComments }) => {
+const FullSizePost = ({ setPostSize, title, writer, time, body }) => {
   return (
     <div>
       <h4 onClick={setPostSize}>{title}</h4>
       <p>{writer}</p>
       <p>{time}</p>
       <p>{body}</p>
-      <Comments
-        comments={postComments}
-      />
     </div>
   )
 }
 
-const TemplateItem = ({ post, isLoggedIn, modifyPost, deletePost, setPostSize, isFullSize, postComments }) => {
+const TemplateItem = ({ post, isLoggedIn, modifyPost, deletePost, setPostSize, isFullSize }) => {
   if (!isFullSize) {
     return (
       <div className="templateItem">
@@ -29,15 +25,12 @@ const TemplateItem = ({ post, isLoggedIn, modifyPost, deletePost, setPostSize, i
           isLoggedIn={isLoggedIn}
           id={post.id}
           modifyPost={modifyPost}
-          deletePost={deletePost}
-        />
+          deletePost={deletePost}/>
       </div>
     )
   } else {
     return (
-
       <div className="templateItemFullSize">
-
         <FullSizePost
           key={post.id}
           setPostSize={setPostSize}
@@ -45,14 +38,13 @@ const TemplateItem = ({ post, isLoggedIn, modifyPost, deletePost, setPostSize, i
           writer={post.writer}
           time={post.time}
           body={post.body}
-          postComments={postComments}
+
         />
         <Buttons
           isLoggedIn={isLoggedIn}
           id={post.id}
           modifyPost={modifyPost}
-          deletePost={deletePost}
-        />
+          deletePost={deletePost}/>
       </div>
     )
   }
@@ -77,17 +69,16 @@ const Buttons = ({ id, deletePost, modifyPost, isLoggedIn }) => {
   }
 }
 
-const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, isFullSize, comments }) => {
+const PostTemplate = ({ posts, isLoggedIn, search, setVisibility, deletePost, modifyPost, setPostSize, isFullSize }) => {
   const template = posts.map(post =>
     <TemplateItem
-      post={post}
       key={post.id}
+      post={post}
       isLoggedIn={isLoggedIn}
       modifyPost={modifyPost}
       deletePost={deletePost}
       setPostSize={setPostSize}
       isFullSize={isFullSize}
-      postComments={comments.filter(comment => comment.blogPost === post.id)}
     />)
   return (
     <div className="template">
@@ -95,4 +86,5 @@ const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, 
     </div>
   )
 }
+
 export default PostTemplate
