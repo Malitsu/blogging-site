@@ -40,8 +40,8 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [search, setSearch] = useState('')
   const [isLoggedIn, setLoggedIn] = useState(false)
-  const [newComment, setComment] = useState('')
-  const [newCommenter, setCommenter] = useState('')
+  /* const [newComment, setComment] = useState('')
+  const [newCommenter, setCommenter] = useState('') */
   const [isFullSize, setNewSize] = useState(false)
   const [fullSizeId, setFullSizeId] = useState('')
 
@@ -88,11 +88,17 @@ const App = () => {
     }
   }
   const setPostSize = (id) => {
+    if (isFullSize) {
+      setNewSize(false)
+    if(isFullSize) {
+      setNewSize(false);
     if(isFullSize) {
       setNewSize(false);
       setFullSizeId('');
       console.log('Full size: false')
     } else {
+      setNewSize(true)
+      setNewSize(true);
       setNewSize(true);
       setFullSizeId(id);
       console.log(id);
@@ -155,7 +161,7 @@ const App = () => {
     setNewId(posts.length + 1)
   }
 
-  const deleteComment = (id) => {
+  /* const deleteComment = (id) => {
     commentService
       .deleteComment(username, password, id)
       .then((answer) => handleUpdate(answer))
@@ -198,76 +204,80 @@ const App = () => {
 
     setComment('')
     setCommenter('')
-  }
+  } */
 
   return (
     <div>
       <TitleTemplate />
-      <div className="main">  
-      <div className="right">
-        <div className="search">
-          <SearchForm
-          makeSearch={makeSearch}
-          search={search}
-          handleSearchChange={handleSearchChange}
-        /> 
+      <div className="main">
+        <div className="right">
+          <div className="search">
+            <SearchForm
+              makeSearch={makeSearch}
+              search={search}
+              handleSearchChange={handleSearchChange}
+            />
+          </div>
+          <div className="loginForm">
+            <LoginForm
+              isLoggedIn={isLoggedIn}
+              checkLogin={checkLogin}
+              username={username}
+              password={password}
+              handleUsernameChange={handleUsernameChange}
+              handlePasswordChange={handlePasswordChange}
+
+            />
+          </div>
         </div>
-        <div className="loginForm">
-          <LoginForm
+        <div className="titleListForm">
+          <TitleList
+            posts={posts}
+          />
+        </div>
+
+        <div className="templates">
+          <PostTemplate
+            posts={posts}
+            isLoggedIn={isLoggedIn}
+            deletePost={deletePost}
+            modifyPost={modifyPost}
+            setPostSize={setPostSize}
+            isFullSize={isFullSize}
+          />
+        </div>
+      </div>
+
+      <div className="posts">
+        <Posts
           isLoggedIn={isLoggedIn}
-          checkLogin={checkLogin}
-          username={username}
-          password={password}
-          handleUsernameChange={handleUsernameChange}
-          handlePasswordChange={handlePasswordChange}   
-        
-        />
-        </div>
-       </div>
-      <div className="titleListForm">
-        <TitleList 
-        posts={posts}
-        />
-        </div>
-
-
-      <div className="templates">
-        <PostTemplate 
           posts={posts}
-          isLoggedIn={isLoggedIn}
           search={search}
           setVisibility={setVisibility}
           deletePost={deletePost}
           modifyPost={modifyPost}
+          comments={comments}
+        />
+          setPostSize={setPostSize}
+          isFullSize={isFullSize}
+         />
           setPostSize={setPostSize}
           isFullSize={isFullSize}
           fullSizeId={fullSizeId}
          />
       </div>
-      </div>
 
-      <div className="posts">
-      <Posts
-        isLoggedIn={isLoggedIn}
-        posts={posts}
-        search={search}
-        setVisibility={setVisibility}
-        deletePost={deletePost}
-        modifyPost={modifyPost}
-      />
-      </div>
-      
       <div>
-      <PostForm
-        isLoggedIn={isLoggedIn}
-        addPost={addPost}
-        newTitle={newTitle}
-        newBody={newBody}
-        newWriter={newWriter}
-        handleTitleChange={handleTitleChange}
-        handleWriterChange={handleWriterChange}
-        handleBodyChange={handleBodyChange}
-      />
+        <PostForm
+          isLoggedIn={isLoggedIn}
+          addPost={addPost}
+          newTitle={newTitle}
+          newBody={newBody}
+          newWriter={newWriter}
+          handleTitleChange={handleTitleChange}
+          handleWriterChange={handleWriterChange}
+          handleBodyChange={handleBodyChange}
+        />
 
       </div>
     </div>
