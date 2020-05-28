@@ -4,13 +4,16 @@ import Comments from './../Comments'
 import './PostTemplate.css'
 
 const FullSizePost = ({ setPostSize, post, isLoggedIn, deletePost, modifyPost, username, password, commentPost }) => {
+  const changePostSize = () => {
+    setPostSize('')
+  }
   return (
     <div>
-      <h4 onClick={setPostSize}>{post.title}</h4>
+      <h4 onClick={changePostSize}>{post.title}</h4>
       <p>{post.writer}</p>
       <p>{post.time}</p>
       <p>{post.body}</p>
-      <button onClick={setPostSize}>Back</button>
+      <button onClick={changePostSize}>Back</button>
       <Buttons
         isLoggedIn={isLoggedIn}
         id={post.id}
@@ -77,6 +80,7 @@ const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, 
     )
   } else {
     const match = posts.filter(post => post.id === fullSizeId)
+    console.log('Inside ')
     return (
       <div className="templateItemFullSize">
         <FullSizePost
