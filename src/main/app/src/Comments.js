@@ -2,7 +2,7 @@
 import React, { useState } from 'react'
 import commentService from './services/comments'
 
-const DeleteButton = ({ username, password, id }) => {
+const DeleteButton = ({ id }) => {
   const deleteComment = () => {
     commentService.deleteComment(id)
   }
@@ -12,7 +12,7 @@ const DeleteButton = ({ username, password, id }) => {
   )
 }
 
-const Comment = ({ comment, isLoggedIn, username, password }) => {
+const Comment = ({ comment, isLoggedIn }) => {
   return (
     <p>
       <span style={{ color: 'green' }}>
@@ -23,15 +23,13 @@ const Comment = ({ comment, isLoggedIn, username, password }) => {
       <span style={{ display: (isLoggedIn) ? 'inline' : 'none' }}>
         <DeleteButton
           id={comment.id}
-          username={username}
-          password={password}
         />
       </span>
     </p>
   )
 }
 
-const CommentForm = ({ id }) => {
+const CommentForm = ({ postId }) => {
   const [newWriter, setNewWriter] = useState('')
   const [newBody, setNewBody] = useState('')
 
@@ -60,14 +58,12 @@ const CommentForm = ({ id }) => {
   )
 }
 
-const Comments = ({ comments, isLoggedIn, username, password, id }) => {
+const Comments = ({ comments, isLoggedIn, postId }) => {
   const rows = () => comments.map(comment =>
     <Comment
       key={comment.id}
       comment={comment}
       isLoggedIn={isLoggedIn}
-      username={username}
-      password={password}
     />
   )
 
@@ -78,7 +74,7 @@ const Comments = ({ comments, isLoggedIn, username, password, id }) => {
         {rows()}
       </ul>
       <CommentForm
-        id={id}
+        postId={postId}
       />
     </div>
   )

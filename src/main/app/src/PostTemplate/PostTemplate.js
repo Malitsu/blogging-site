@@ -4,16 +4,17 @@ import Comments from './../Comments'
 import './PostTemplate.css'
 
 const FullSizePost = ({ setPostSize, post, isLoggedIn, deletePost, modifyPost, username, password, commentPost }) => {
-  const changePostSize = () => {
+  const backButton = () => {
     setPostSize('')
   }
+
   return (
     <div>
-      <h4 onClick={changePostSize}>{post.title}</h4>
+      <h4 onClick={backButton}>{post.title}</h4>
       <p>{post.writer}</p>
       <p>{post.time}</p>
       <p>{post.body}</p>
-      <button onClick={changePostSize}>Back</button>
+      <button onClick={backButton}>Back</button>
       <Buttons
         isLoggedIn={isLoggedIn}
         id={post.id}
@@ -33,6 +34,7 @@ const FullSizePost = ({ setPostSize, post, isLoggedIn, deletePost, modifyPost, u
 
 const TemplateItem = ({ post, setPostSize }) => {
   const changePostSize = () => {
+    console.log(post.id)
     setPostSize(post.id)
   }
   return (
