@@ -11,6 +11,8 @@ public class CommentRestController {
     //Create the database object
     @Autowired
     CommentDatabase cdb;
+    @Autowired
+    BlogDatabase bdb;
 
     @PostConstruct
     public void init() {
@@ -41,6 +43,9 @@ public class CommentRestController {
     @CrossOrigin
     @RequestMapping(value = "/comments", method= RequestMethod.POST)
     public Comment saveComment(@RequestBody Comment c) {
+        // hae blogPost olio id:llä
+        // sijoita saatu olio Comment - olion BlogPost-kenttään
+        c.setBlogPost(bdb.findById(22).get());
         cdb.save(c);
         return c;
     }

@@ -31,31 +31,28 @@ const Comment = ({ comment, isLoggedIn, username, password }) => {
   )
 }
 
-const CommentForm = ({ id, handleUpdate }) => {
+const CommentForm = ({ id }) => {
   const [newWriter, setNewWriter] = useState('')
   const [newBody, setNewBody] = useState('')
 
   const handleWriterChange = (event) => { setNewWriter(event.target.value) }
   const handleBodyChange = (event) => { setNewBody(event.target.value) }
 
-  const addComment = () => {
+  const createComment = () => {
     const commentObject = {
       writer: newWriter,
       time: new Date().toISOString(),
       body: newBody,
-      likes: 0,
-      id: id
+      likes: 0
     }
-
     commentService.createComment(commentObject)
-    //  .then((answer) => handleUpdate(answer))
-
+      .then(answer => console.log(answer))
     setNewWriter('')
     setNewBody('')
   }
 
   return (
-    <form onSubmit={addComment}>
+    <form onSubmit={createComment}>
       <div><input placeholder="Writer" value={newWriter} onChange={handleWriterChange} /></div>
       <div><textarea placeholder="Text" value={newBody} onChange={handleBodyChange} style={{ height: 100, width: 200 }} /></div>
       <button type="submit">Comment</button>

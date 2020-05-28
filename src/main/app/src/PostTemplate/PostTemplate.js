@@ -3,7 +3,7 @@ import React from 'react'
 import Comments from './../Comments'
 import './PostTemplate.css'
 
-const FullSizePost = ({ setPostSize, post, isLoggedIn, deletePost, modifyPost, username, password }) => {
+const FullSizePost = ({ setPostSize, post, isLoggedIn, deletePost, modifyPost, username, password, commentPost }) => {
   return (
     <div>
       <h4 onClick={setPostSize}>{post.title}</h4>
@@ -22,6 +22,7 @@ const FullSizePost = ({ setPostSize, post, isLoggedIn, deletePost, modifyPost, u
         username={username}
         password={password}
         id={post.id}
+        commentPost={commentPost}
       />
     </div>
   )
@@ -75,7 +76,7 @@ const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, 
       </div>
     )
   } else {
-    const match = posts.filter(post => post.id === fullSizeId)
+    const match = posts.filter(post => post.id !== fullSizeId)
     return (
       <div className="templateItemFullSize">
         <FullSizePost

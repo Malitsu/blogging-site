@@ -21,8 +21,6 @@ public class Comment {
     @JoinColumn(name = "fk_blog_post")
     private BlogPost blogPost;
 
-    private int blogPostId;
-
     @Override
     public String toString() {
         return "BlogComment{" +
@@ -45,6 +43,17 @@ public class Comment {
     public void setBody(String body) {
         this.body = body;
     }
+    public void setBlogPost(BlogPost blogPost) {
+        this.blogPost = blogPost;
+    }
+
+    /*public BlogPost getBlogPost() {
+        return this.blogPost;
+    }*/
+
+    public int getBlogPostId() {
+        return this.blogPost.getId();
+    }
 
     public Date getTime() {
         return time;
@@ -66,12 +75,11 @@ public class Comment {
 
     public void setLikes(int likes) { this.likes = likes; }
 
-    public Comment(String body, Date time, String writer, int likes, int blogPostId) {
+    public Comment(String body, Date time, String writer, int likes) {
         this.body = body;
         this.time = time;
         this.writer = writer;
         this.likes = likes;
-        this.blogPostId = blogPostId;
     }
     public Comment() {}
 }
