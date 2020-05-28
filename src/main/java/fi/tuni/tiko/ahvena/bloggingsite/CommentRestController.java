@@ -45,7 +45,7 @@ public class CommentRestController {
     public Comment saveComment(@RequestBody Comment c) {
         // hae blogPost olio id:llä
         // sijoita saatu olio Comment - olion BlogPost-kenttään
-        c.setBlogPost(bdb.findById(22).get());
+        c.setBlogPost(bdb.findById(c.getBlogPostId()).get());
         cdb.save(c);
         return c;
     }

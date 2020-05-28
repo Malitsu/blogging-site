@@ -3,7 +3,7 @@ import React from 'react'
 import Comments from './../Comments'
 import './PostTemplate.css'
 
-const FullSizePost = ({ setPostSize, post, isLoggedIn, deletePost, modifyPost, username, password, commentPost }) => {
+const FullSizePost = ({ setPostSize, post, isLoggedIn, deletePost, modifyPost, handleUpdate, username, password }) => {
   const backButton = () => {
     setPostSize('')
   }
@@ -21,12 +21,11 @@ const FullSizePost = ({ setPostSize, post, isLoggedIn, deletePost, modifyPost, u
         modifyPost={modifyPost}
         deletePost={deletePost}/>
       <Comments
-        comments={post.comments}
+        post={post}
         isLoggedIn={isLoggedIn}
+        handleUpdate={handleUpdate}
         username={username}
         password={password}
-        id={post.id}
-        commentPost={commentPost}
       />
     </div>
   )
@@ -67,7 +66,7 @@ const Buttons = ({ id, deletePost, modifyPost, isLoggedIn }) => {
   }
 }
 
-const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, isFullSize, fullSizeId, username, password }) => {
+const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, isFullSize, fullSizeId, username, password, handleUpdate }) => {
   if (!isFullSize) {
     const template = posts.map(post =>
       <TemplateItem
@@ -94,6 +93,7 @@ const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, 
           modifyPost={modifyPost}
           username={username}
           password={password}
+          handleUpdate={handleUpdate}
         />
       </div>
     )
