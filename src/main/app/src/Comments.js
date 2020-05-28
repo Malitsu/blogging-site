@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import React from 'react'
+import React, { useState } from 'react'
 import commentService from './services/comments'
 
 const DeleteButton = ({ username, password, id }) => {
@@ -15,21 +15,55 @@ const DeleteButton = ({ username, password, id }) => {
 const Comment = ({ comment, isLoggedIn, username, password }) => {
   return (
     <p>
-      <span style={{ color: 'green' }}>{comment.writer}  {comment.time}</span><br/>
+      <span style={{ color: 'green' }}>
+        {comment.writer}  {comment.time}
+      </span><br/>
       {comment.body}<br/>
       {comment.likes} 👍
-      <p style={{ display: (isLoggedIn) ? 'inline' : 'none' }}>
+      <span style={{ display: (isLoggedIn) ? 'inline' : 'none' }}>
         <DeleteButton
           id={comment.id}
           username={username}
           password={password}
         />
-      </p>
+      </span>
     </p>
   )
 }
 
-const Comments = ({ comments, isLoggedIn, username, password }) => {
+const CommentForm = ({ id, handleUpdate }) => {
+  const [newWriter, setNewWriter] = useState('')
+  const [newBody, setNewBody] = useState('')
+
+  const handleWriterChange = (event) => { setNewWriter(event.target.value) }
+  const handleBodyChange = (event) => { setNewBody(event.target.value) }
+
+  const addComment = () => {
+    const commentObject = {
+      writer: newWriter,
+      time: new Date().toISOString(),
+      body: newBody,
+      likes: 0,
+      id: id
+    }
+
+    commentService.createComment(commentObject)
+    //  .then((answer) => handleUpdate(answer))
+
+    setNewWriter('')
+    setNewBody('')
+  }
+
+  return (
+    <form onSubmit={addComment}>
+      <div><input placeholder="Writer" value={newWriter} onChange={handleWriterChange} /></div>
+      <div><textarea placeholder="Text" value={newBody} onChange={handleBodyChange} style={{ height: 100, width: 200 }} /></div>
+      <button type="submit">Comment</button>
+    </form>
+  )
+}
+
+const Comments = ({ comments, isLoggedIn, username, password, id }) => {
   const rows = () => comments.map(comment =>
     <Comment
       key={comment.id}
@@ -46,6 +80,9 @@ const Comments = ({ comments, isLoggedIn, username, password }) => {
       <ul>
         {rows()}
       </ul>
+      <CommentForm
+        id={id}
+      />
     </div>
   )
 }

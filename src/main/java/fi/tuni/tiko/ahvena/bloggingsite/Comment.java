@@ -66,11 +66,12 @@ public class Comment {
 
     public void setLikes(int likes) { this.likes = likes; }
 
-    public Comment(String body, Date time, String writer, int likes) {
+    public Comment(String body, Date time, String writer, int likes, int blogPostId) {
         this.body = body;
         this.time = time;
         this.writer = writer;
         this.likes = likes;
+        this.blogPostId = blogPostId;
     }
     public Comment() {}
 }

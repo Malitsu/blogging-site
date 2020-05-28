@@ -52,6 +52,7 @@ const TemplateItem = ({ post, isLoggedIn, modifyPost, deletePost, setPostSize, i
           isLoggedIn={isLoggedIn}
           username={username}
           password={password}
+          id={post.id}
         />
       </div>
     )
@@ -66,6 +67,7 @@ const Buttons = ({ id, deletePost, modifyPost, isLoggedIn }) => {
   const deleteClick = () => {
     deletePost(id)
   }
+
   if (isLoggedIn) {
     return (
       <div className="templateButtons">
@@ -73,7 +75,7 @@ const Buttons = ({ id, deletePost, modifyPost, isLoggedIn }) => {
         <button onClick={modifyClick}>Modify</button>
       </div>)
   } else {
-    return ('')
+    return (<div></div>)
   }
 }
 
