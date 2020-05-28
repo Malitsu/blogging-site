@@ -91,17 +91,9 @@ const App = () => {
   const setPostSize = (id) => {
     if (isFullSize) {
       setNewSize(false)
-    }
-    if (isFullSize) {
-      setNewSize(false)
-    }
-    if (isFullSize) {
-      setNewSize(false)
       setFullSizeId('')
       console.log('Full size: false')
     } else {
-      setNewSize(true)
-      setNewSize(true)
       setNewSize(true)
       setFullSizeId(id)
       console.log(id)
@@ -169,19 +161,16 @@ const App = () => {
       .deleteComment(username, password, id)
       .then((answer) => handleUpdate(answer))
   }
-
   const modifyComment = (id) => {
     const match = comments.filter(comment => comment.id === id)
     setComment(match[0].body)
     setCommenter(match[0].writer)
     setNewId(match[0].blogpost)
   }
-
   const addComment = (event) => {
     event.preventDefault()
     const copyArr = [...comments]
     const matches = copyArr.filter(comment => comment.id === newId)
-
     if (matches.length === 0) {
       const commentObject = {
         writer: newCommenter,
@@ -204,7 +193,6 @@ const App = () => {
         .updatePost(username, password, matches[0].id, commentObject)
         .then((answer) => handleUpdate(answer))
     }
-
     setComment('')
     setCommenter('')
   } */
@@ -246,6 +234,7 @@ const App = () => {
             modifyPost={modifyPost}
             setPostSize={setPostSize}
             isFullSize={isFullSize}
+            fullSizeId={fullSizeId}
             comments={comments}
           />
         </div>
