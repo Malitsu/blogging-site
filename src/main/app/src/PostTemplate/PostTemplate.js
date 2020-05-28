@@ -14,9 +14,10 @@ const FullSizePost = ({ setPostSize, title, writer, time, body }) => {
   )
 }
 
-const TemplateItem = ({ post, id, isLoggedIn, modifyPost, deletePost, setPostSize }) => {
+const TemplateItem = ({ post, isLoggedIn, modifyPost, deletePost, setPostSize }) => {
   const changePostSize = () => {
-    setPostSize(id);
+    setPostSize(post.id);
+    console.log(post.id+ ' in templateItem');
   }
     return (
       <div className="templateItem">
@@ -53,12 +54,12 @@ const Buttons = ({ id, deletePost, modifyPost, isLoggedIn }) => {
 }
 
 const PostTemplate = ({ posts, isLoggedIn, search, setVisibility, deletePost, modifyPost, setPostSize, isFullSize, fullSizeId }) => {
+  console.log(posts)
   if (!isFullSize) {
       const template = posts.map(post =>
-    <TemplateItem
+      <TemplateItem
       key={post.id}
       post={post}
-      id={post.id}
       isLoggedIn={isLoggedIn}
       modifyPost={modifyPost}
       deletePost={deletePost}
@@ -71,6 +72,7 @@ const PostTemplate = ({ posts, isLoggedIn, search, setVisibility, deletePost, mo
   )}
   else {
     const match = posts.filter(post => post.id === fullSizeId)
+    console.log(fullSizeId+ ' in FullSizePost')
       return (
       <div className="templateItemFullSize">
         <FullSizePost

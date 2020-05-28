@@ -96,7 +96,7 @@ const App = () => {
     } else {
       setNewSize(true)
       setFullSizeId(id)
-      console.log(id)
+      console.log(id+ 'in index.js')
       console.log('Full size: true')
     }
   }
