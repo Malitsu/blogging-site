@@ -4,7 +4,6 @@ import ReactDOM from 'react-dom'
 import React, { useState, useEffect } from 'react'
 
 import postService from './services/posts'
-import commentService from './services/comments'
 import authService from './services/authentication'
 import './index.css'
 import TitleList from './TitleList/TitleList'
@@ -22,16 +21,7 @@ const App = () => {
       })
   }, [])
 
-  useEffect(() => {
-    commentService
-      .getComments()
-      .then(initialComments => {
-        setComments(initialComments)
-      })
-  }, [])
-
   const [posts, setPosts] = useState([])
-  const [comments, setComments] = useState([])
   const [newTitle, setNewTitle] = useState('')
   const [newWriter, setNewWriter] = useState('')
   const [newBody, setNewBody] = useState('')
@@ -40,8 +30,6 @@ const App = () => {
   const [password, setPassword] = useState('')
   const [search, setSearch] = useState('')
   const [isLoggedIn, setLoggedIn] = useState(false)
-  /* const [newComment, setComment] = useState('')
-  const [newCommenter, setCommenter] = useState('') */
   const [isFullSize, setNewSize] = useState(false)
   const [fullSizeId, setFullSizeId] = useState('')
 
@@ -246,7 +234,6 @@ const App = () => {
             modifyPost={modifyPost}
             setPostSize={setPostSize}
             isFullSize={isFullSize}
-            comments={comments}
           />
         </div>
       </div>
@@ -259,7 +246,6 @@ const App = () => {
           setVisibility={setVisibility}
           deletePost={deletePost}
           modifyPost={modifyPost}
-          comments={comments}
           setPostSize={setPostSize}
           isFullSize={isFullSize}
           fullSizeId={fullSizeId}

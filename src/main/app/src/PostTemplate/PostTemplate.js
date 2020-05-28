@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import Comments from './../Comments'
 import './PostTemplate.css'
 
 const FullSizePost = ({ setPostSize, title, writer, time, body }) => {
@@ -25,7 +26,8 @@ const TemplateItem = ({ post, isLoggedIn, modifyPost, deletePost, setPostSize, i
           isLoggedIn={isLoggedIn}
           id={post.id}
           modifyPost={modifyPost}
-          deletePost={deletePost}/>
+          deletePost={deletePost}
+        />
       </div>
     )
   } else {
@@ -38,13 +40,16 @@ const TemplateItem = ({ post, isLoggedIn, modifyPost, deletePost, setPostSize, i
           writer={post.writer}
           time={post.time}
           body={post.body}
-
         />
         <Buttons
           isLoggedIn={isLoggedIn}
           id={post.id}
           modifyPost={modifyPost}
-          deletePost={deletePost}/>
+          deletePost={deletePost}
+        />
+        <Comments
+          comments={post.comments}
+        />
       </div>
     )
   }
@@ -69,7 +74,7 @@ const Buttons = ({ id, deletePost, modifyPost, isLoggedIn }) => {
   }
 }
 
-const PostTemplate = ({ posts, isLoggedIn, search, setVisibility, deletePost, modifyPost, setPostSize, isFullSize }) => {
+const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, isFullSize }) => {
   const template = posts.map(post =>
     <TemplateItem
       key={post.id}
