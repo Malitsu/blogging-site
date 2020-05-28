@@ -227,20 +227,6 @@ const App = () => {
         </div>
       </div>
 
-      <div className="posts">
-        <Posts
-          isLoggedIn={isLoggedIn}
-          posts={posts}
-          search={search}
-          setVisibility={setVisibility}
-          deletePost={deletePost}
-          modifyPost={modifyPost}
-          setPostSize={setPostSize}
-          isFullSize={isFullSize}
-          fullSizeId={fullSizeId}
-        />
-      </div>
-
       <div>
         <PostForm
           isLoggedIn={isLoggedIn}
@@ -252,7 +238,6 @@ const App = () => {
           handleWriterChange={handleWriterChange}
           handleBodyChange={handleBodyChange}
         />
-
       </div>
     </div>
   )

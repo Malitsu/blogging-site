@@ -38,6 +38,10 @@
     border-radius: 8px;
     background-color: seashell;
     width: 60%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    
 }
 .templateItemFullSize h4 {
     font-family: 'Indie Flower';
@@ -48,4 +52,9 @@
 .templateItemFullSize h4:hover {
     cursor: pointer;
     color: #55B266;
+}
+@media screen and (max-width: 600px){
+    .templateItemFullSize {
+        width: 90%;
+    } 
 }
