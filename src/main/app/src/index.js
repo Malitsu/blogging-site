@@ -31,7 +31,7 @@ const App = () => {
   const [search, setSearch] = useState('')
   const [isLoggedIn, setLoggedIn] = useState(false)
   const [isFullSize, setNewSize] = useState(false)
-  const [fullSizeId, setFullSizeId] = useState('')
+  const [fullSizeId, setFullSizeId] = useState()
 
   const handleTitleChange = (event) => { setNewTitle(event.target.value) }
   const handleWriterChange = (event) => { setNewWriter(event.target.value) }
@@ -80,12 +80,10 @@ const App = () => {
     if (isFullSize) {
       setNewSize(false)
       setFullSizeId('')
-      console.log('Full size: false')
     } else {
       setNewSize(true)
       setFullSizeId(id)
-      console.log(id+ 'in index.js')
-      console.log('Full size: true')
+      
     }
   }
 
