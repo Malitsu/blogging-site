@@ -19,11 +19,10 @@ const deleteComment = (username, password, id) => {
   return request.then(data => data)
 }
 
-const createComment = (username, password, newComment) => {
+const createComment = (newComment) => {
   const request = fetch(baseUrl, {
     method: 'POST',
     headers: {
-      Authorization: 'Basic ' + base64.encode(username + ':' + password),
       'Content-Type': 'application/json'
     },
     body: JSON.stringify(newComment)
