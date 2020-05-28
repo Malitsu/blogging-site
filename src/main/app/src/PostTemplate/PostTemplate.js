@@ -1,19 +1,23 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
+import Comments from './../Comments'
 import './PostTemplate.css'
 
-const FullSizePost = ({ setPostSize, title, writer, time, body }) => {
+const FullSizePost = ({ setPostSize, title, writer, time, body, postComments }) => {
   return (
     <div>
       <h4 onClick={setPostSize}>{title}</h4>
       <p>{writer}</p>
       <p>{time}</p>
       <p>{body}</p>
+      <Comments
+        comments={postComments}
+      />
     </div>
   )
 }
 
-const TemplateItem = ({ post, isLoggedIn, modifyPost, deletePost, setPostSize, isFullSize }) => {
+const TemplateItem = ({ post, isLoggedIn, modifyPost, deletePost, setPostSize, isFullSize, postComments }) => {
   if (!isFullSize) {
     return (
       <div className="templateItem">
@@ -25,7 +29,8 @@ const TemplateItem = ({ post, isLoggedIn, modifyPost, deletePost, setPostSize, i
           isLoggedIn={isLoggedIn}
           id={post.id}
           modifyPost={modifyPost}
-          deletePost={deletePost}/>
+          deletePost={deletePost}
+        />
       </div>
     )
   } else {
@@ -40,13 +45,14 @@ const TemplateItem = ({ post, isLoggedIn, modifyPost, deletePost, setPostSize, i
           writer={post.writer}
           time={post.time}
           body={post.body}
-
+          postComments={postComments}
         />
         <Buttons
           isLoggedIn={isLoggedIn}
           id={post.id}
           modifyPost={modifyPost}
-          deletePost={deletePost}/>
+          deletePost={deletePost}
+        />
       </div>
     )
   }
@@ -71,16 +77,17 @@ const Buttons = ({ id, deletePost, modifyPost, isLoggedIn }) => {
   }
 }
 
-const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, isFullSize }) => {
+const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, isFullSize, comments }) => {
   const template = posts.map(post =>
     <TemplateItem
-      key={post.key}
       post={post}
+      key={post.id}
       isLoggedIn={isLoggedIn}
       modifyPost={modifyPost}
       deletePost={deletePost}
       setPostSize={setPostSize}
       isFullSize={isFullSize}
+      postComments={comments.filter(comment => comment.blogPost === post.id)}
     />)
   return (
     <div className="template">

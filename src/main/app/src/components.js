@@ -57,8 +57,8 @@ const Posts = ({ isLoggedIn, posts, search, setVisibility, deletePost, modifyPos
 
   const rows = () => postsToShow.map(post =>
     <Post
-      isLoggedIn={isLoggedIn}
       key={post.id}
+      isLoggedIn={isLoggedIn}
       post={post}
       setVisibility={setVisibility}
       deletePost={deletePost}

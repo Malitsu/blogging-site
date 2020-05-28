@@ -11,27 +11,32 @@ public class Comment {
     private Date time;
     private String writer;
     private int likes;
-    public String body;
+    private String body;
 
     @Id
     @GeneratedValue
-    public int id;
+    private int id;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "fk_blog_post")
     private BlogPost blogPost;
+
+    private int blogPostId;
 
     @Override
     public String toString() {
         return "BlogComment{" +
                 ", time=" + time +
                 ", writer='" + writer + '\'' +
-                ", likes=" + likes + '\'' +
+                ", likes=" + likes +
                 ", body='" + body + '\'' +
-                ", id=" + id + '\'' +
-                ", post=" + blogPost +
+                ", id=" + id +
                 '}';
     }
+
+    public int getId() { return id; }
+
+    public void setId(int id) { this.id = id; }
 
     public String getBody() {
         return body;
@@ -61,12 +66,11 @@ public class Comment {
 
     public void setLikes(int likes) { this.likes = likes; }
 
-    public Comment(String body, Date time, String writer, int likes, BlogPost blogPost) {
+    public Comment(String body, Date time, String writer, int likes) {
         this.body = body;
         this.time = time;
         this.writer = writer;
         this.likes = likes;
-        this.blogPost = blogPost;
     }
     public Comment() {}
 }

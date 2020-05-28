@@ -1,14 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from 'react'
 
-const TitleListItem = (props) => {
-  return <li>{props.title}</li>
+const TitleListItem = ({ title }) => {
+  return <li>{title}</li>
 }
 
-const TitleList = (props) => {
-  const posts = props.posts
-
-  const titles = posts.map((post) =>
+const TitleList = ({ posts }) => {
+  const titles = posts.map(post =>
     <TitleListItem
       key={post.id}
       title={post.title}

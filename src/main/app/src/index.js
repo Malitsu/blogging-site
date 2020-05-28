@@ -234,6 +234,7 @@ const App = () => {
             modifyPost={modifyPost}
             setPostSize={setPostSize}
             isFullSize={isFullSize}
+            comments={comments}
           />
         </div>
       </div>
