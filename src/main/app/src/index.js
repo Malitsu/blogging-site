@@ -8,7 +8,6 @@ import authService from './services/authentication'
 import './index.css'
 import TitleList from './TitleList/TitleList'
 import { PostForm, LoginForm, SearchForm } from './forms'
-import Posts from './components'
 import PostTemplate from './PostTemplate/PostTemplate'
 import TitleTemplate from './TitleTemplate/TitleTemplate'
 
@@ -48,12 +47,12 @@ const App = () => {
       })
   }
 
-  const setVisibility = (id) => {
+  /* const setVisibility = (id) => {
     const match = posts.filter(post => post.id === id)
     match[0].visibility = !match[0].visibility
     const copyArr = posts.map(post => post.id === id ? match[0] : post)
     setPosts(copyArr)
-  }
+  } */
 
   const checkLogin = (event) => {
     event.preventDefault()
@@ -77,25 +76,15 @@ const App = () => {
   }
 
   const setPostSize = (id) => {
-    if (isFullSize && id!='') {
+    console.log(id)
+    if (isFullSize && id !== '') {
       setFullSizeId(id)
-    }
-    else if(isFullSize) {
-      setNewSize(false)
-    }
-    if (isFullSize) {
-      setNewSize(false)
-    }
-    if (isFullSize) {
+    } else if (isFullSize) {
       setNewSize(false)
       setFullSizeId('')
-    }else {
-      setNewSize(true)
-      setNewSize(true)
+    } else {
       setNewSize(true)
       setFullSizeId(id)
-      console.log(id)
-      console.log('Full size: true')
     }
   }
 
@@ -194,10 +183,10 @@ const App = () => {
             isFullSize={isFullSize}
             username={username}
             password={password}
+            fullSizeId={fullSizeId}
           />
         </div>
       </div>
-
       <div>
         <PostForm
           isLoggedIn={isLoggedIn}
