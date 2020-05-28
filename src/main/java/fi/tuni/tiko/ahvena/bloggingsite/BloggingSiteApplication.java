@@ -24,5 +24,8 @@ starting information for running the app to the console.
  */
 	@Override
 	public void run(String... args) throws Exception {
+		System.out.println("Team Ahvena: Tiina Malinen & Anna Metsäpelto");
+		System.out.println("Get all posts: curl -X GET http://localhost:8080/blogposts");
+		System.out.println("Username: admin, Password: admin");
 	}
 }
