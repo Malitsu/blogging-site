@@ -5,7 +5,7 @@ const PostForm = ({ isLoggedIn, addPost, newTitle, newBody, newWriter, handleTit
   return (
     <div style={{ display: (isLoggedIn) ? 'inline' : 'none' }}>
       <h4>New Post</h4>
-      <form onSubmit={addPost}>
+      <form onSubmit={addPost} method="POST">
         <div><input placeholder="Title" value={newTitle} onChange={handleTitleChange} /></div>
         <div><input placeholder="Writer" value={newWriter} onChange={handleWriterChange} /></div>
         <div><textarea placeholder="Text" value={newBody} onChange={handleBodyChange} style={{ height: 500, width: 500 }} /></div>
@@ -18,12 +18,12 @@ const PostForm = ({ isLoggedIn, addPost, newTitle, newBody, newWriter, handleTit
 const LoginForm = ({ isLoggedIn, checkLogin, username, password, handleUsernameChange, handlePasswordChange }) => {
   return (isLoggedIn
     ? <div>
-      <form onSubmit={checkLogin}>
+      <form onSubmit={checkLogin} method="POST">
         <button type="submit">Logout</button>
       </form>
     </div>
     : <div>
-      <form onSubmit={checkLogin}>
+      <form onSubmit={checkLogin} method="POST">
         <div><input placeholder="Username" value={username} onChange={handleUsernameChange}/></div>
         <div><input placeholder="Password" value={password} onChange={handlePasswordChange}/></div>
         <button type="submit">Login</button>
@@ -35,7 +35,7 @@ const LoginForm = ({ isLoggedIn, checkLogin, username, password, handleUsernameC
 const SearchForm = ({ search, handleSearchChange }) => {
   return (
     <div>
-      <form>
+      <form method="POST">
         <div><input placeholder="Search" value={search} onChange={handleSearchChange}/></div>
       </form>
     </div>

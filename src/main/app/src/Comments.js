@@ -2,9 +2,10 @@
 import React, { useState } from 'react'
 import commentService from './services/comments'
 
-const DeleteButton = ({ id }) => {
+const DeleteButton = ({ username, password, id, handleUpdate }) => {
   const deleteComment = () => {
-    commentService.deleteComment(id)
+    commentService.deleteComment(username, password, id)
+      .then(answer => handleUpdate(answer))
   }
 
   return (
@@ -12,7 +13,7 @@ const DeleteButton = ({ id }) => {
   )
 }
 
-const Comment = ({ comment, isLoggedIn }) => {
+const Comment = ({ comment, isLoggedIn, username, password, handleUpdate }) => {
   return (
     <p>
       <span style={{ color: 'green' }}>
@@ -23,34 +24,39 @@ const Comment = ({ comment, isLoggedIn }) => {
       <span style={{ display: (isLoggedIn) ? 'inline' : 'none' }}>
         <DeleteButton
           id={comment.id}
+          username={username}
+          password={password}
+          handleUpdate={handleUpdate}
         />
       </span>
     </p>
   )
 }
 
-const CommentForm = ({ postId }) => {
+const CommentForm = ({ post, handleUpdate }) => {
   const [newWriter, setNewWriter] = useState('')
   const [newBody, setNewBody] = useState('')
 
   const handleWriterChange = (event) => { setNewWriter(event.target.value) }
   const handleBodyChange = (event) => { setNewBody(event.target.value) }
 
-  const createComment = () => {
+  const createComment = (event) => {
+    event.preventDefault()
     const commentObject = {
       writer: newWriter,
       time: new Date().toISOString(),
       body: newBody,
-      likes: 0
+      likes: 0,
+      blogPost: post
     }
     commentService.createComment(commentObject)
-      .then(answer => console.log(answer))
+      .then(answer => handleUpdate(answer))
     setNewWriter('')
     setNewBody('')
   }
 
   return (
-    <form onSubmit={createComment}>
+    <form onSubmit={createComment} method="POST">
       <div><input placeholder="Writer" value={newWriter} onChange={handleWriterChange} /></div>
       <div><textarea placeholder="Text" value={newBody} onChange={handleBodyChange} style={{ height: 100, width: 200 }} /></div>
       <button type="submit">Comment</button>
@@ -58,12 +64,15 @@ const CommentForm = ({ postId }) => {
   )
 }
 
-const Comments = ({ comments, isLoggedIn, postId }) => {
-  const rows = () => comments.map(comment =>
+const Comments = ({ post, isLoggedIn, handleUpdate, username, password }) => {
+  const rows = () => post.comments.map(comment =>
     <Comment
       key={comment.id}
       comment={comment}
       isLoggedIn={isLoggedIn}
+      username={username}
+      password={password}
+      handleUpdate={handleUpdate}
     />
   )
 
@@ -74,7 +83,8 @@ const Comments = ({ comments, isLoggedIn, postId }) => {
         {rows()}
       </ul>
       <CommentForm
-        postId={postId}
+        post={post}
+        handleUpdate={handleUpdate}
       />
     </div>
   )

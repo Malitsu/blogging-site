@@ -186,6 +186,7 @@ const App = () => {
             password={password}
             fullSizeId={fullSizeId}
             search={search}
+            handleUpdate={handleUpdate}
           />
         </div>
       </div>

@@ -2,12 +2,11 @@
 import React from 'react'
 
 const TitleListItem = ({ title, id, setPostSize }) => {
-    const changePostSize = () => {
-        setPostSize(id);
-    }
+  const changePostSize = () => {
+    setPostSize(id)
+  }
   return <li onClick={changePostSize}>{title}</li>
 }
-
 
 const TitleList = ({ posts, setPostSize }) => {
   const titles = posts.map(post =>
