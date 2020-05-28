@@ -8,16 +8,18 @@ function FullSizePost(props) {
       <p>{props.writer}</p>
       <p>{props.time}</p>
       <p>{props.body}</p>
+      <button onClick={props.setPostSize}>Back</button>
     </div>
   )
 }
 
 function TemplateItem(props) {
-
-  if(!props.isFullSize) {
-    return (
+  const changePostSize = () => {
+    props.setPostSize(props.id);
+  }
+  return (
     <div className="templateItem"> 
-      <h4 onClick={props.setPostSize}>{props.title}</h4>
+      <h4 onClick={changePostSize}>{props.title}</h4>
         <p>{props.writer}</p>
         <p>{props.time}</p>
         <p>{props.body}</p>
@@ -27,31 +29,8 @@ function TemplateItem(props) {
         modifyPost={props.modifyPost}
         deletePost={props.deletePost}/>
     </div>
-  )}
-  else {
-    return (
-      
-      <div className="templateItemFullSize">
-        
-        <FullSizePost 
-        key={props.id}
-        title={props.title}
-        writer={props.writer}
-        time={props.time}
-        body={props.body}
-
-        />
-        <Buttons 
-        isLoggedIn={props.isLoggedIn}
-        id={props.id}
-        modifyPost={props.modifyPost}
-        deletePost={props.deletePost}/>
-    </div>
     )
   }
-
-
-}
 
 const Buttons = ({id, deletePost, modifyPost, isLoggedIn}) => {
   
@@ -75,9 +54,11 @@ const Buttons = ({id, deletePost, modifyPost, isLoggedIn}) => {
   } 
 
 function PostTemplate(props) {
+  if(!props.isFullSize) {
   const posts = props.posts;
   const template = posts.map(post =>
     <TemplateItem 
+      key={post.id}
       title={post.title} 
       writer={post.writer} 
       time={post.time} 
@@ -87,7 +68,6 @@ function PostTemplate(props) {
       modifyPost={props.modifyPost}
       deletePost={props.deletePost}
       setPostSize={props.setPostSize}
-      isFullSize={props.isFullSize}
       posts={posts}
       />)
     return (
@@ -95,5 +75,28 @@ function PostTemplate(props) {
         {template}
       </div>
     )
+  } else {
+    const match = props.posts.filter(post => post.id === props.fullSizeId)
+      return (
+        <div className="templateItemFullSize">
+          <FullSizePost 
+          key={match.id}
+          title={match.title}
+          writer={match.writer}
+          time={match.time}
+          body={match.body}
+          setPostSize={props.setPostSize}
+
+
+        />
+        <Buttons 
+        isLoggedIn={props.isLoggedIn}
+        id={props.id}
+        modifyPost={props.modifyPost}
+        deletePost={props.deletePost}/>
+    </div>
+    )
+  }
+
 }
 export default PostTemplate;

@@ -43,6 +43,7 @@ const App = () => {
   const [newComment, setComment] = useState('')
   const [newCommenter, setCommenter] = useState('')
   const [isFullSize, setNewSize] = useState(false)
+  const [fullSizeId, setFullSizeId] = useState('')
 
   const handleTitleChange = (event) => { setNewTitle(event.target.value) }
   const handleWriterChange = (event) => { setNewWriter(event.target.value) }
@@ -86,12 +87,15 @@ const App = () => {
         })
     }
   }
-  const setPostSize = () => {
+  const setPostSize = (id) => {
     if(isFullSize) {
       setNewSize(false);
+      setFullSizeId('');
       console.log('Full size: false')
     } else {
       setNewSize(true);
+      setFullSizeId(id);
+      console.log(id);
       console.log('Full size: true')
     }
   }
@@ -237,6 +241,7 @@ const App = () => {
           modifyPost={modifyPost}
           setPostSize={setPostSize}
           isFullSize={isFullSize}
+          fullSizeId={fullSizeId}
          />
       </div>
       </div>
