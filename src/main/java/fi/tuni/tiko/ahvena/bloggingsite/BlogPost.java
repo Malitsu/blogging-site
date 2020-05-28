@@ -38,13 +38,14 @@ public class BlogPost {
     }
 
     public List<Comment> getComments() { return comments; }
-
     public void setComments( List<Comment> comments ) { this.comments = comments; }
+
+    public int getId() { return id; }
+    public void setId(int id) { this.id = id; }
 
     public String getTitle() {
         return title;
     }
-
     public void setTitle(String title) {
         this.title = title;
     }
@@ -52,7 +53,6 @@ public class BlogPost {
     public String getBody() {
         return body;
     }
-
     public void setBody(String body) {
         this.body = body;
     }
@@ -60,7 +60,6 @@ public class BlogPost {
     public Date getTime() {
         return time;
     }
-
     public void setTime(Date time) {
         this.time = time;
     }
@@ -68,7 +67,6 @@ public class BlogPost {
     public String getWriter() {
         return writer;
     }
-
     public void setWriter(String writer) {
         this.writer = writer;
     }

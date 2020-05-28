@@ -14,7 +14,7 @@ const FullSizePost = ({ setPostSize, title, writer, time, body }) => {
   )
 }
 
-const TemplateItem = ({ post, isLoggedIn, modifyPost, deletePost, setPostSize, isFullSize }) => {
+const TemplateItem = ({ post, isLoggedIn, modifyPost, deletePost, setPostSize, isFullSize, username, password }) => {
   if (!isFullSize) {
     return (
       <div className="templateItem">
@@ -49,6 +49,9 @@ const TemplateItem = ({ post, isLoggedIn, modifyPost, deletePost, setPostSize, i
         />
         <Comments
           comments={post.comments}
+          isLoggedIn={isLoggedIn}
+          username={username}
+          password={password}
         />
       </div>
     )
@@ -74,7 +77,7 @@ const Buttons = ({ id, deletePost, modifyPost, isLoggedIn }) => {
   }
 }
 
-const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, isFullSize }) => {
+const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, isFullSize, username, password }) => {
   const template = posts.map(post =>
     <TemplateItem
       key={post.id}
@@ -84,6 +87,8 @@ const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, 
       deletePost={deletePost}
       setPostSize={setPostSize}
       isFullSize={isFullSize}
+      username={username}
+      password={password}
     />)
   return (
     <div className="template">

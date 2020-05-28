@@ -17,7 +17,8 @@ const Postbody = ({ isLoggedIn, post, visibility, modifyPost, deletePost }) => {
       <p>{post.body}</p>
       <p style={{ display: (isLoggedIn) ? 'inline' : 'none' }}>
         <button onClick={deleteClick}>Delete</button>
-        <button onClick={modifyClick}>Modify</button></p>
+        <button onClick={modifyClick}>Modify</button>
+      </p>
       <Comments
         comments={post.comments}
       />

@@ -234,6 +234,8 @@ const App = () => {
             modifyPost={modifyPost}
             setPostSize={setPostSize}
             isFullSize={isFullSize}
+            username={username}
+            password={password}
           />
         </div>
       </div>
