@@ -30,9 +30,8 @@ const createComment = (newComment) => {
   return request.then(data => data)
 }
 
-const updateComment = (username, password, id, newComment) => {
+const updateComment = (id, newComment) => {
   const headers = new Headers()
-  headers.append('Authorization', 'Basic ' + base64.encode(username + ':' + password))
   headers.append('Content-Type', 'application/json')
   const request = fetch(baseUrl + '/' + id, {
     method: 'PUT',

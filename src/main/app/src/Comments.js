@@ -13,14 +13,23 @@ const DeleteButton = ({ username, password, id, handleUpdate }) => {
   )
 }
 
-const Comment = ({ comment, isLoggedIn, username, password, handleUpdate }) => {
+const Comment = ({ comment, isLoggedIn, username, password, handleUpdate, post }) => {
+  const likeButton = () => {
+    const likedComment = { ...comment }
+    likedComment.likes = comment.likes + 1
+    likedComment.blogPost = post
+    console.log(likedComment)
+    commentService.updateComment(comment.id, likedComment)
+      .then(answer => handleUpdate(answer))
+  }
+
   return (
     <p>
       <span style={{ color: 'green' }}>
         {comment.writer}  {comment.time}
       </span><br/>
       {comment.body}<br/>
-      {comment.likes} 👍
+      {comment.likes} <button onClick={likeButton}>👍</button>
       <span style={{ display: (isLoggedIn) ? 'inline' : 'none' }}>
         <DeleteButton
           id={comment.id}
@@ -73,6 +82,7 @@ const Comments = ({ post, isLoggedIn, handleUpdate, username, password }) => {
       username={username}
       password={password}
       handleUpdate={handleUpdate}
+      post={post}
     />
   )
 
