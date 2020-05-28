@@ -77,25 +77,15 @@ const App = () => {
   }
 
   const setPostSize = (id) => {
-    if (isFullSize && id!='') {
+    if (isFullSize && id!=='') {
       setFullSizeId(id)
     }
-    else if(isFullSize) {
-      setNewSize(false)
-    }
-    if (isFullSize) {
-      setNewSize(false)
-    }
-    if (isFullSize) {
+    else if(isFullSize && id==='') {
       setNewSize(false)
       setFullSizeId('')
-    }else {
-      setNewSize(true)
-      setNewSize(true)
+    } else {
       setNewSize(true)
       setFullSizeId(id)
-      console.log(id)
-      console.log('Full size: true')
     }
   }
 
@@ -192,6 +182,7 @@ const App = () => {
             modifyPost={modifyPost}
             setPostSize={setPostSize}
             isFullSize={isFullSize}
+            fullSizeId={fullSizeId}
             username={username}
             password={password}
           />

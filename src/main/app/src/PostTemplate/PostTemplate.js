@@ -76,7 +76,7 @@ const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, 
       </div>
     )
   } else {
-    const match = posts.filter(post => post.id !== fullSizeId)
+    const match = posts.filter(post => post.id === fullSizeId)
     return (
       <div className="templateItemFullSize">
         <FullSizePost
