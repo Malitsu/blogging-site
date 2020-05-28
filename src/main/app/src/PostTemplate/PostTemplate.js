@@ -69,8 +69,8 @@ const Buttons = ({ id, deletePost, modifyPost, isLoggedIn }) => {
 const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, isFullSize, fullSizeId, username, password, search, handleUpdate }) => {
   if (!isFullSize) {
     const postsToShow = (search === '')
-    ? posts
-    : posts.filter(post => post.body.toLowerCase().includes(search.toLowerCase()) ||
+      ? posts
+      : posts.filter(post => post.body.toLowerCase().includes(search.toLowerCase()) ||
                            post.title.toLowerCase().includes(search.toLowerCase()))
 
     const template = postsToShow.map(post =>

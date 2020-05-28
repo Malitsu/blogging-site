@@ -184,7 +184,6 @@ const App = () => {
             fullSizeId={fullSizeId}
             username={username}
             password={password}
-            fullSizeId={fullSizeId}
             search={search}
             handleUpdate={handleUpdate}
           />
