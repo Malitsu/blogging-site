@@ -3,60 +3,42 @@ import React from 'react'
 import Comments from './../Comments'
 import './PostTemplate.css'
 
-const FullSizePost = ({ setPostSize, title, writer, time, body }) => {
+const FullSizePost = ({ setPostSize, post, isLoggedIn, deletePost, modifyPost, username, password }) => {
   return (
     <div>
-      <h4 onClick={setPostSize}>{title}</h4>
-      <p>{writer}</p>
-      <p>{time}</p>
-      <p>{body}</p>
+      <h4 onClick={setPostSize}>{post.title}</h4>
+      <p>{post.writer}</p>
+      <p>{post.time}</p>
+      <p>{post.body}</p>
+      <button onClick={setPostSize}>Back</button>
+      <Buttons
+        isLoggedIn={isLoggedIn}
+        id={post.id}
+        modifyPost={modifyPost}
+        deletePost={deletePost}/>
+      <Comments
+        comments={post.comments}
+        isLoggedIn={isLoggedIn}
+        username={username}
+        password={password}
+        id={post.id}
+      />
     </div>
   )
 }
 
-const TemplateItem = ({ post, isLoggedIn, modifyPost, deletePost, setPostSize, isFullSize, username, password }) => {
-  if (!isFullSize) {
-    return (
-      <div className="templateItem">
-        <h4 onClick={setPostSize}>{post.title}</h4>
-        <p>{post.writer}</p>
-        <p>{post.time}</p>
-        <p>{post.body}</p>
-        <Buttons
-          isLoggedIn={isLoggedIn}
-          id={post.id}
-          modifyPost={modifyPost}
-          deletePost={deletePost}
-        />
-      </div>
-    )
-  } else {
-    return (
-      <div className="templateItemFullSize">
-        <FullSizePost
-          key={post.id}
-          setPostSize={setPostSize}
-          title={post.title}
-          writer={post.writer}
-          time={post.time}
-          body={post.body}
-        />
-        <Buttons
-          isLoggedIn={isLoggedIn}
-          id={post.id}
-          modifyPost={modifyPost}
-          deletePost={deletePost}
-        />
-        <Comments
-          comments={post.comments}
-          isLoggedIn={isLoggedIn}
-          username={username}
-          password={password}
-          id={post.id}
-        />
-      </div>
-    )
+const TemplateItem = ({ post, setPostSize }) => {
+  const changePostSize = () => {
+    setPostSize(post.id)
   }
+  return (
+    <div className="templateItem">
+      <h4 onClick={changePostSize}>{post.title}</h4>
+      <p>{post.writer}</p>
+      <p>{post.time}</p>
+      <p>{post.body}</p>
+    </div>
+  )
 }
 
 const Buttons = ({ id, deletePost, modifyPost, isLoggedIn }) => {
@@ -79,24 +61,36 @@ const Buttons = ({ id, deletePost, modifyPost, isLoggedIn }) => {
   }
 }
 
-const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, isFullSize, username, password }) => {
-  const template = posts.map(post =>
-    <TemplateItem
-      key={post.id}
-      post={post}
-      isLoggedIn={isLoggedIn}
-      modifyPost={modifyPost}
-      deletePost={deletePost}
-      setPostSize={setPostSize}
-      isFullSize={isFullSize}
-      username={username}
-      password={password}
-    />)
-  return (
-    <div className="template">
-      {template}
-    </div>
-  )
+const PostTemplate = ({ posts, isLoggedIn, deletePost, modifyPost, setPostSize, isFullSize, fullSizeId, username, password }) => {
+  if (!isFullSize) {
+    const template = posts.map(post =>
+      <TemplateItem
+        key={post.id}
+        post={post}
+        setPostSize={setPostSize}
+      />)
+    return (
+      <div className="template">
+        {template}
+      </div>
+    )
+  } else {
+    const match = posts.filter(post => post.id === fullSizeId)
+    return (
+      <div className="templateItemFullSize">
+        <FullSizePost
+          key={match[0].id}
+          setPostSize={setPostSize}
+          post={match[0]}
+          isLoggedIn={isLoggedIn}
+          deletePost={deletePost}
+          modifyPost={modifyPost}
+          username={username}
+          password={password}
+        />
+      </div>
+    )
+  }
 }
 
 export default PostTemplate

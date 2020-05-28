@@ -37,6 +37,7 @@
     box-shadow: 3px 3px 2px lightgrey;
     border-radius: 8px;
     background-color: seashell;
+    width: 60%;
 }
 .templateItemFullSize h4 {
     font-family: 'Indie Flower';
